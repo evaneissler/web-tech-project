@@ -2,3 +2,51 @@ API Documentation
 
 Use Cases and corresponding functions
 
+Use Case 1: Crew Member Creates Crew Member Profile
+- createMemberProfile(data)
+    - takes JSON array of user data
+
+
+Use Case 3: Crew Member Views A Crew Member’s Profile
+- getCrewMemberData(id)
+    - takes id of crew member that was clicked, returns JSON array with user's info
+
+
+Use Case 5: Crew Member Views General Game Schedule
+- getGeneralGameSchedule()
+    - returns JSON array with list of games 
+
+
+Use Case 6: Crew Member Views Crew List
+- getCrewList()
+    - returns JSON array with list of crew members and info
+
+
+Use Case 7: Crew Member Submits Availability
+- submitAvailability()
+    - takes JSON array of events with either "available" or "not-available" and user id
+
+
+Use Case 14: Admin Invites Crew Member
+- inviteCrewMember()
+    - takes in email address, sends invite
+
+
+Use Case 15: Admin Deletes A Crew Member
+- deleteCrewMember()
+    - takes if of crew member clicked to be deleted
+
+
+Use Case 16: Admin views crew members
+- viewCrewMembers()
+.. WORK IN PROGRESS
+
+
+Use Case 18: Admin Creates Game Schedule
+
+
+Use Case 20: Admin Adds Games To Game Schedule
+
+
+Use Case 23: Admin Schedules Crew
+
