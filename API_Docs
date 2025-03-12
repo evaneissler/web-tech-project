@@ -18,35 +18,60 @@ Use Case 5: Crew Member Views General Game Schedule
 
 
 Use Case 6: Crew Member Views Crew List
-- getCrewList()
+- getCrewList(event_id)
+    - takes in event id
     - returns JSON array with list of crew members and info
 
 
 Use Case 7: Crew Member Submits Availability
-- submitAvailability()
+- submitAvailability(events)
     - takes JSON array of events with either "available" or "not-available" and user id
 
 
 Use Case 14: Admin Invites Crew Member
-- inviteCrewMember()
+- inviteCrewMember(email)
     - takes in email address, sends invite
 
 
 Use Case 15: Admin Deletes A Crew Member
-- deleteCrewMember()
-    - takes if of crew member clicked to be deleted
+- deleteCrewMember(id)
+    - takes id of crew member clicked to be deleted
+    - deletes crew member
 
 
 Use Case 16: Admin views crew members
 - viewCrewMembers()
-.. WORK IN PROGRESS
+    - only for Admin
+    - returns JSON array of crew members
 
 
 Use Case 18: Admin Creates Game Schedule
+- createGameSchedule(name)
+    - takes in name of schedule being created
 
 
 Use Case 20: Admin Adds Games To Game Schedule
+- getGameSchedules()
+    - return JSON array of all the current schedules
+    - used to display list of all schedules for admin to choose which schedule to add games to
+
+- getGamesForSchedule(schedule_id)
+    - takes in id of schedule selected
+    - returns JSON array of all games in that schedule
+
+- addGameToSchedule(schedule_id, event_data)
+    - takes in id of game schedule selected, takes game data entered, creates event
 
 
 Use Case 23: Admin Schedules Crew
+- getGameSchedules() // Same as above
+- getGamesForSchedule(schedule_id) // Same as above
+
+- getCrewList(event_id)
+    - takes event_id, returns JSON array of all crew available for each position
+    - one crew member will have the "assigned": true tag
+
+- saveCrewList(event_id, crew_list)
+    - takes event_id and crew_list array of all available crew members with "assigned": true tag on one crew member for each position
+
 
