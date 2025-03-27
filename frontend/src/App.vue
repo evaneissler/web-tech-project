@@ -1,14 +1,13 @@
 <script setup>
 // main script entry 
-import Header from './components/HeaderAdmin.vue';
+import HomeView from './pages/HomeView.vue';
 
 </script>
 
 <template>
 <!-- main html entry -->
- <Header></Header>
+    <HomeView></HomeView>
 
-++
 </template>
 
 <style scoped>
