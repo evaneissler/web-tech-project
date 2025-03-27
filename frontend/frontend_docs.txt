@@ -18,23 +18,14 @@ page analysis:
        Use Case 7: Crew Member Submits Availability 
 
             Crew -- Crew Management 
+                Use Case 6: Crew Member Views Crew List
                 Use Case 1: Crew Member Creates Crew Member Profile
                 Use Case 3: Crew Member Views A Crew Member’s Profile
 
-            Crew -- Crew Schedule
+            Crew -- Crew Game Schedule
                 Use Case 5: Crew Member Views General Game Schedule
-                
-
-
        
-
-    Everyone/General * 
-
-        Use Case 5: Crew Member Views General Game Schedule
-        Use Case 3: Crew Member Views A Crew Member’s Profile
-        Use Case 5: Crew Member Views General Game Schedule
-        Use Case 6: Crew Member Views Crew List
-
-
+                
+      
   
 • 

@@ -8,7 +8,7 @@ import Header from './components/HeaderAdmin.vue';
 <!-- main html entry -->
  <Header></Header>
 
-
+++
 </template>
 
 <style scoped>
