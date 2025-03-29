@@ -1,14 +1,18 @@
 <script setup>
-// main script entry 
-import HomeView from './pages/HomeView.vue';
+
 
 </script>
 
 <template>
-<!-- main html entry -->
-    <HomeView></HomeView>
+<!-- nav  -->
 
-</template>
+
+
+<router-view></router-view>
+
+ <!-- footer -->
+
+</template>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            >
 
 <style scoped>
 /* main css */

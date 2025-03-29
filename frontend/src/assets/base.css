@@ -5,3 +5,8 @@
 }
 
 /* main css should be here */
+:root{
+  --main-background: rgb(245, 245, 245);
+  --tcu-purple-color:#4d1979;
+  --tcu-white-color:white;
+}
