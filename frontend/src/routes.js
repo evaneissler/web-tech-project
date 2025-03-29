@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "./pages/HomeView.vue";
 import AdminPanel from "./pages/admin/AdminPanel.vue";
-import CrewManagement from "./pages/admin/admin-comp/Invite.vue";
+import CrewPanel from "./pages/crew/CrewPanel.vue";
 
 
 const routes = [
@@ -16,9 +16,9 @@ const routes = [
         component: AdminPanel
     },
     {
-        path:"/admin-crew",
-        name:"Admin Managing Crew",
-        component: CrewManagement
+        path:"/crew-panel",
+        name:"Crew Main Panel",
+        component: CrewPanel
     }
 ];
 

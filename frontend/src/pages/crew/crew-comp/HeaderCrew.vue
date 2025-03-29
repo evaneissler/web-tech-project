@@ -1,7 +1,7 @@
 <template>
     <nav class="flex justify-around nav-custom">
         <div class="logo">
-            <router-link to="/admins-panel" class="frogcrew">FrogCrew | Admin</router-link>
+            <router-link to="/admins-panel" class="frogcrew">FrogCrew | Crew</router-link>
         </div>
 
         <div class="flex custom-list" >
