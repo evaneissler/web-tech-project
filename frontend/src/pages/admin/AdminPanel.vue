@@ -1,13 +1,27 @@
 <script>
+import "@/assets/base.css";
 import CustomButton from '@/components/CustomButton.vue';
+import CrewProfile from './admin-comp/CrewProfile.vue';
+import CrewSchedule from "./admin-comp/CrewSchedule.vue";
+import GameSchedule from './admin-comp/GameSchedule.vue';
 import HeaderAdmin from './admin-comp/HeaderAdmin.vue';
+import Invite from "./admin-comp/Invite.vue";
 
 
     export default{
         name:"AdminPanel",
         components:{
             HeaderAdmin,
-            CustomButton
+            CustomButton,
+            GameSchedule,
+            CrewProfile,
+            CrewSchedule,
+            Invite
+        },
+        data(){
+            return {
+                currentOnPanel: null
+            }
         }
     }
 </script>
@@ -15,25 +29,49 @@ import HeaderAdmin from './admin-comp/HeaderAdmin.vue';
 <template>
 <HeaderAdmin />
 
-<div class="admin-functions">
-    <CustomButton>Create New Game Schedule</CustomButton>
-    <CustomButton> Schedule Crew</CustomButton>
-    <CustomButton>View Profile</CustomButton>
+<div class="container-admin">
+    <div class="admin-functions">
+        <CustomButton @custom-click="currentOnPanel = 'GameSchedule'" >Game Schedule</CustomButton>
+        <CustomButton @custom-click="currentOnPanel = 'CrewSchedule'"> Schedule Crew</CustomButton>
+        <CustomButton @custom-click="currentOnPanel = 'CrewProfile'" >View Crew</CustomButton>
+        <CustomButton @custom-click="currentOnPanel = 'Invite'"> Invite</CustomButton>
+    </div>
+
+    <div class="currentTab">
+        <component :is="currentOnPanel" />
+    </div>
 </div>
-
-<hr>
-
 
 </template>
 
 
 
 <style scoped>
-.admin-functions{
+.container-admin{
     display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    margin: 0.5rem;
+}
+
+.admin-functions{
+    width: 20vw;
+    background: var(--main-background);
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    border-right: solid 1px lightgray;
+    height: calc(100vh - 10vh);
+}
+
+.admin-functions > *{
+    background: var(--sub-button-color);
+    color:black;
+    border-bottom: 1px solid lightgray;
+    margin-top:1rem;
+}
+
+.currentTab{
+    background: white;
+    height: calc(100vh - 10vh);
+    width: calc(100vw - 20vw);
 }
 
 

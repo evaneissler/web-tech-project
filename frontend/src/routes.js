@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "./pages/HomeView.vue";
 import AdminPanel from "./pages/admin/AdminPanel.vue";
-import CrewManagement from "./pages/admin/CrewManagement.vue";
+import CrewManagement from "./pages/admin/admin-comp/Invite.vue";
 
 
 const routes = [

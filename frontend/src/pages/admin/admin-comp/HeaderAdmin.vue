@@ -5,9 +5,12 @@
         </div>
 
         <div class="flex custom-list" >
-            <router-link to="/admin-crew">Crew</router-link>
-            <router-link to="/invite">Invite </router-link>
-            <router-link to="/game-schedule">Game Schedule </router-link>
+            <div></div>
+            <div class="innercontainer">
+                <!-- <router-link to="/admin-crew">Crew</router-link> -->
+                <!-- <router-link to="/invite">Invite </router-link> -->
+                <router-link to="/admin-profile">My Profile </router-link>
+            </div>
         </div>
     </nav>
 </template>
@@ -26,13 +29,21 @@ import "@/assets/base.css";
         font-weight: bold;
         padding: 1rem;
         color: var(--tcu-white-color);
+        height: 10vh;
     }
 
     .custom-list{
         display: flex;
         width: 100%;
-        justify-content: space-evenly;
+        /* background: red; */
+        justify-content: space-between;
         align-items: center;
+    }
+
+    .innercontainer{
+        display: flex;
+        width: 30%;
+        justify-content: space-around;
     }
 
     .custom-list > a{
