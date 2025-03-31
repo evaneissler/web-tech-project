@@ -31,9 +31,9 @@ import Invite from "./admin-comp/Invite.vue";
 
 <div class="container-admin">
     <div class="admin-functions">
-        <CustomButton @custom-click="currentOnPanel = 'GameSchedule'" >Game Schedule</CustomButton>
-        <CustomButton @custom-click="currentOnPanel = 'CrewSchedule'"> Schedule Crew</CustomButton>
-        <CustomButton @custom-click="currentOnPanel = 'CrewProfile'" >View Crew</CustomButton>
+        <CustomButton @custom-click="currentOnPanel = 'GameSchedule'" >Game</CustomButton>
+        <CustomButton @custom-click="currentOnPanel = 'CrewSchedule'"> Schedule</CustomButton>
+        <CustomButton @custom-click="currentOnPanel = 'CrewProfile'" >Crew</CustomButton>
         <CustomButton @custom-click="currentOnPanel = 'Invite'"> Invite</CustomButton>
     </div>
 

@@ -1,9 +1,9 @@
 <script>
 import "@/assets/base.css";
 import CustomButton from '@/components/CustomButton.vue';
-import CreateCrewProfile from "./crew-comp/CreateCrewProfile.vue";
 import CrewAvailable from "./crew-comp/CrewAvailable.vue";
 import CrewProfileView from "./crew-comp/CrewProfileView.vue";
+import GameSchedule from "./crew-comp/GameSchedule.vue";
 import HeaderCrew from "./crew-comp/HeaderCrew.vue";
 import ViewGameSchedule from "./crew-comp/ViewGameSchedule.vue";
 
@@ -15,7 +15,7 @@ import ViewGameSchedule from "./crew-comp/ViewGameSchedule.vue";
             CustomButton,
             ViewGameSchedule,
             CrewProfileView,
-            CreateCrewProfile,
+            GameSchedule,
             CrewAvailable
         },
         data(){
@@ -31,10 +31,10 @@ import ViewGameSchedule from "./crew-comp/ViewGameSchedule.vue";
 
 <div class="container-admin">
     <div class="admin-functions">
-        <CustomButton @custom-click="currentOnPanel = 'ViewGameSchedule'" >View Game Schedule</CustomButton>
-        <CustomButton @custom-click="currentOnPanel = 'CrewAvailable'">Submit Availability</CustomButton>
-        <CustomButton @custom-click="currentOnPanel = 'CrewProfileView'" >View Profiles</CustomButton>
-        <CustomButton @custom-click="currentOnPanel = 'CreateCrewProfile'"> Create Profile</CustomButton>
+        <CustomButton @custom-click="currentOnPanel = 'ViewGameSchedule'" >Schedule</CustomButton>
+        <CustomButton @custom-click="currentOnPanel = 'CrewAvailable'"> Availability</CustomButton>
+        <CustomButton @custom-click="currentOnPanel = 'GameSchedule'"> Game</CustomButton>
+        <CustomButton @custom-click="currentOnPanel = 'CrewProfileView'" > Crew</CustomButton>
     </div>
 
     <div class="currentTab">

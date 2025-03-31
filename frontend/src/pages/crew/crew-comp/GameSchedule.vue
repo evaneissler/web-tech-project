@@ -1,6 +1,6 @@
 <template>
     <div>
-        Create Crew Profile
+        Game schedule
     </div>
 </template>
 
