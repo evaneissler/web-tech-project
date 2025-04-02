@@ -2,45 +2,48 @@ package edu.tcu.cs.backend.system;
 
 import edu.tcu.cs.backend.admin.Admin;
 import edu.tcu.cs.backend.admin.AdminRepository;
-import edu.tcu.cs.backend.crew.CrewMember;
-import edu.tcu.cs.backend.crew.CrewMemberRepository;
+import edu.tcu.cs.backend.user.User;
+import edu.tcu.cs.backend.user.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
 
 @Component
 public class DBDataInitializer implements CommandLineRunner {
 
-    private final AdminRepository adminRepository;
+    private final UserRepository userRepository;
 
-    private final CrewMemberRepository crewMemberRepository;
-
-    public DBDataInitializer(AdminRepository adminRepository, CrewMemberRepository crewMemberRepository) {
-        this.adminRepository = adminRepository;
-        this.crewMemberRepository = crewMemberRepository;
+    public DBDataInitializer(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        Admin a1 = new Admin();
-        a1.setFirstName("Olivia");
-        a1.setLastName("Banks");
-        adminRepository.save(a1);
 
-        Admin a2 = new Admin();
-        a2.setFirstName("Olivia");
-        a2.setLastName("Banks");
-        adminRepository.save(a2);
+        User user1 = new User();
+        user1.setFirstName("John");
+        user1.setLastName("Doe");
+        user1.setEmail("john@doe.com");
+        user1.setPassword("password");
+        user1.setRole("USER");
+        userRepository.save(user1);
 
-        CrewMember c1 = new CrewMember();
-        c1.setFirstName("Evan");
-        c1.setLastName("Eissler");
-        crewMemberRepository.save(c1);
+        User user2 = new User();
+        user2.setFirstName("Jane");
+        user2.setLastName("Smith");
+        user2.setEmail("jane@smith.com");
+        user2.setPassword("password");
+        user2.setRole("ADMIN");
+        userRepository.save(user2);
 
-        CrewMember c2 = new CrewMember();
-        c2.setFirstName("Evan");
-        c2.setLastName("Eissler");
-        crewMemberRepository.save(c2);
-
+        User user3 = new User();
+        user3.setFirstName("Jack");
+        user3.setLastName("Brown");
+        user3.setEmail("jack@brown.com");
+        user3.setPassword("password");
+        user3.setRole("USER");
+        userRepository.save(user3);
 
     }
 }
