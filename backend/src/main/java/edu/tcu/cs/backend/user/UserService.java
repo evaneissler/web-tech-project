@@ -21,7 +21,7 @@ public class UserService {
     }
 
     public User save(User newUser) {
-        newUser.setPassword(newUser.getPassword());
+//        newUser.setPassword(newUser.getPassword());
         return this.userRepository.save(newUser);
     }
 
