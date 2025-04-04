@@ -20,6 +20,8 @@ public class User implements Serializable {
     private String role;
     private String positions; // Stored in comma separated values
 
+    private Boolean enabled = true;
+
     public User() {}
 
     public Integer getId() {
@@ -65,5 +67,9 @@ public class User implements Serializable {
     public String getPositions() { return positions; }
 
     public void setPositions(String positions) { this.positions = positions; }
+
+    public Boolean getEnabled() { return enabled; }
+
+    public void setEnabled(Boolean enabled) { this.enabled = enabled; }
 
 }
