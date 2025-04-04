@@ -5,6 +5,7 @@ import CrewPanel from "./pages/crew/CrewPanel.vue";
 
 
 const routes = [
+
     {
         path: "/",
         name: "Home",
