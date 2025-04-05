@@ -2,6 +2,8 @@ package edu.tcu.cs.backend.gameSchedule;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.tcu.cs.backend.game.Game;
+import edu.tcu.cs.backend.game.GameService;
 import edu.tcu.cs.backend.system.StatusCode;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,11 +38,13 @@ class GameScheduleControllerTest {
     @MockitoBean
     GameScheduleService gameScheduleService;
 
+    @MockitoBean
+    GameService gameService;
+
     List<GameSchedule> gameSchedules;
 
     @Value("/api/v1")
     String baseUrl;
-
 
     @BeforeEach
     void setUp() {
@@ -94,4 +98,5 @@ class GameScheduleControllerTest {
                 .andExpect(jsonPath("$.data.id").value(4))
                 .andExpect(jsonPath("$.data.name").value("Swimming Schedule"));
     }
+
 }
