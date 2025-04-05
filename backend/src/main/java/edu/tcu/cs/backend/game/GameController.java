@@ -9,6 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/gameSchedule")
 public class GameController {
+
     private final GameService gameService;
 
     public GameController(GameService gameService) {
@@ -28,14 +29,15 @@ public class GameController {
     }
 
     @PutMapping("/game/{gameId}")
-    public Result updateGame(@RequestBody int gameId) {
-        Game foundGame = this.gameService.findById(gameId);
-        Game saved = this.gameService.save(foundGame, foundGame.getGameSchedule().getId());
+    public Result updateGame(@PathVariable int gameId, @RequestBody Game updatedGame) {
+        Game oldGame = this.gameService.findById(gameId);
+        oldGame.setName(updatedGame.getName());
+        Game saved = this.gameService.save(oldGame, oldGame.getGameSchedule().getId());
         return new Result(true, StatusCode.SUCCESS, "Update Success", saved);
     }
 
     @GetMapping("/{scheduleId}/games")
-    public Result findGamesBySchedule(@RequestParam int scheduleId) {
+    public Result findGamesBySchedule(@PathVariable int scheduleId) {
         List<Game> foundGames = this.gameService.findAllByScheduleId(scheduleId);
         return new Result(true, StatusCode.SUCCESS, "Find By Schedule Success", foundGames);
     }

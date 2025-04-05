@@ -22,7 +22,7 @@ public class GameService {
     }
 
     public List<Game> findAll() {
-        return gameRepository.findAll();
+        return this.gameRepository.findAll();
     }
 
     public Game save(Game newGame, Integer scheduleId) {
@@ -37,6 +37,6 @@ public class GameService {
     }
 
     public List<Game> findAllByScheduleId(Integer scheduleId) {
-        return gameRepository.findByGameScheduleId(scheduleId);
+        return this.gameRepository.findByGameScheduleId(scheduleId);
     }
 }

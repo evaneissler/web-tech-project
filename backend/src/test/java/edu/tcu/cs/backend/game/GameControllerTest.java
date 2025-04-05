@@ -10,7 +10,6 @@ import edu.tcu.cs.backend.system.StatusCode;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,7 +21,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -40,9 +38,6 @@ class GameControllerTest {
 
     @MockitoBean
     GameService gameService;
-
-    @MockitoBean
-    GameController gameController;
 
     @MockitoBean
     GameScheduleService gameScheduleService;
@@ -105,25 +100,5 @@ class GameControllerTest {
                 .andExpect(jsonPath("$.data.id").value(1))
                 .andExpect(jsonPath("$.data.name").value("Football"));
     }
-
-//    @Test
-//    void testUpdateGameSuccess() throws Exception {
-//        Game updatedGame = new Game();
-//        updatedGame.setName("Football");
-//        updatedGame.setId(1);
-//        updatedGame.setGameSchedule(this.gameSchedule);
-//
-//        given(this.gameService.findById(1)).willReturn(this.games.get(0));
-//
-//        given(this.gameController.updateGame(eq("1"), Mockito.any(Artifact.class))).willReturn(updatedArtifact);
-//
-//
-//        this.mockMvc.perform(put(this.baseUrl + "/game/1").accept(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("$.flag").value(true))
-//                .andExpect(jsonPath("$.code").value(StatusCode.SUCCESS))
-//                .andExpect(jsonPath("$.message").value("Find Success"))
-//                .andExpect(jsonPath("$.data.id").value(1))
-//                .andExpect(jsonPath("$.data.name").value("Football"));
-//    }
 
 }
