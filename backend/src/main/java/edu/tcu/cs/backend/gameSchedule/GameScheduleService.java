@@ -22,9 +22,7 @@ public class GameScheduleService {
         return gameScheduleRepository.findAll();
     }
 
-    public GameSchedule save(GameSchedule newGameSchedule) {
-        return this.gameScheduleRepository.save(newGameSchedule);
-    }
+    public GameSchedule save(GameSchedule newGameSchedule) { return this.gameScheduleRepository.save(newGameSchedule); }
 
     public GameSchedule findById(Integer id) {
         return this.gameScheduleRepository.findById(id)
