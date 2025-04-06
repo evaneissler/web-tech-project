@@ -1,8 +1,10 @@
 package edu.tcu.cs.backend.user;
 
+import edu.tcu.cs.backend.availability.Availability;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -21,6 +23,9 @@ public class User implements Serializable {
     private String positions; // Stored in comma separated values
 
     private Boolean enabled = true;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Availability> availabilities;
 
     public User() {}
 

@@ -1,5 +1,7 @@
 package edu.tcu.cs.backend.system;
 
+import edu.tcu.cs.backend.availability.Availability;
+import edu.tcu.cs.backend.availability.AvailabilityRepository;
 import edu.tcu.cs.backend.game.Game;
 import edu.tcu.cs.backend.game.GameRepository;
 import edu.tcu.cs.backend.gameSchedule.GameSchedule;
@@ -19,11 +21,13 @@ public class DBDataInitializer implements CommandLineRunner {
 
     private final GameScheduleRepository gameScheduleRepository;
     private final GameRepository gameRepository;
+    private final AvailabilityRepository availabilityRepository;
 
-    public DBDataInitializer(UserRepository userRepository, GameScheduleRepository gameScheduleRepository, GameRepository gameRepository) {
+    public DBDataInitializer(UserRepository userRepository, GameScheduleRepository gameScheduleRepository, GameRepository gameRepository, AvailabilityRepository availabilityRepository) {
         this.userRepository = userRepository;
         this.gameScheduleRepository = gameScheduleRepository;
         this.gameRepository = gameRepository;
+        this.availabilityRepository = availabilityRepository;
     }
 
     @Override
@@ -90,12 +94,28 @@ public class DBDataInitializer implements CommandLineRunner {
         game6.setName("Football Game");
         game6.setGameSchedule(schedule2);
 
+        Availability availability1 = new Availability();
+        availability1.setGame(game3);
+        availability1.setUser(user1);
+
+        Availability availability2 = new Availability();
+        availability2.setGame(game3);
+        availability2.setUser(user3);
+
+        Availability availability3 = new Availability();
+        availability3.setGame(game6);
+        availability3.setUser(user3);
+
         gameRepository.save(game1);
         gameRepository.save(game2);
         gameRepository.save(game3);
         gameRepository.save(game4);
         gameRepository.save(game5);
         gameRepository.save(game6);
+
+        availabilityRepository.save(availability1);
+        availabilityRepository.save(availability2);
+        availabilityRepository.save(availability3);
         
     }
 }
