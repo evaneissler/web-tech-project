@@ -51,7 +51,8 @@ class GameControllerTest {
     @BeforeEach
     void setUp() {
         this.gameSchedule = new GameSchedule();
-        gameSchedule.setName("Football Schedule");
+        this.gameSchedule.setName("Football Schedule");
+        this.gameSchedule.setId(1);
 
         Game game1 = new Game();
         game1.setName("Football");
@@ -99,6 +100,45 @@ class GameControllerTest {
                 .andExpect(jsonPath("$.message").value("Find Success"))
                 .andExpect(jsonPath("$.data.id").value(1))
                 .andExpect(jsonPath("$.data.name").value("Football"));
+    }
+
+    @Test
+    void testUpdateGameSuccess() throws Exception {
+        Game oldGame = new Game();
+        oldGame.setName("Football Updated");
+        oldGame.setGameSchedule(this.gameSchedule);
+        oldGame.setId(1);
+
+        Game newGame = new Game();
+        newGame.setName("Football Updated");
+        newGame.setGameSchedule(this.gameSchedule);
+        newGame.setId(1);
+
+        String json = this.objectMapper.writeValueAsString(oldGame);
+
+        given(this.gameService.findById(1)).willReturn(oldGame);
+
+        given(this.gameService.save(oldGame, 1)).willReturn(newGame);
+
+        this.mockMvc.perform(put(this.baseUrl + "/game/1").contentType(MediaType.APPLICATION_JSON).content(json).accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.flag").value(true))
+                .andExpect(jsonPath("$.code").value(StatusCode.SUCCESS))
+                .andExpect(jsonPath("$.message").value("Update Success"))
+                .andExpect(jsonPath("$.data.id").value(1))
+                .andExpect(jsonPath("$.data.name").value("Football Updated"));
+    }
+
+    @Test
+    void testFindGamesByScheduleIdSuccess() throws Exception {
+        given(this.gameService.findAllByScheduleId(1)).willReturn(this.games);
+
+        this.mockMvc.perform(get(this.baseUrl + "/1/games").accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.flag").value(true))
+                .andExpect(jsonPath("$.code").value(StatusCode.SUCCESS))
+                .andExpect(jsonPath("$.message").value("Find By Schedule Success"))
+                .andExpect(jsonPath("$.data", Matchers.hasSize(this.games.size())))
+                .andExpect(jsonPath("$.data[0].id").value(1))
+                .andExpect(jsonPath("$.data[0].name").value("Football"));
     }
 
 }

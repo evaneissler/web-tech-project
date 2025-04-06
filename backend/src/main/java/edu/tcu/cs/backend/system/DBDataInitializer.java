@@ -1,5 +1,7 @@
 package edu.tcu.cs.backend.system;
 
+import edu.tcu.cs.backend.game.Game;
+import edu.tcu.cs.backend.game.GameRepository;
 import edu.tcu.cs.backend.gameSchedule.GameSchedule;
 import edu.tcu.cs.backend.gameSchedule.GameScheduleRepository;
 import edu.tcu.cs.backend.gameSchedule.GameScheduleService;
@@ -16,10 +18,12 @@ public class DBDataInitializer implements CommandLineRunner {
     private final UserRepository userRepository;
 
     private final GameScheduleRepository gameScheduleRepository;
+    private final GameRepository gameRepository;
 
-    public DBDataInitializer(UserRepository userRepository, GameScheduleRepository gameScheduleRepository) {
+    public DBDataInitializer(UserRepository userRepository, GameScheduleRepository gameScheduleRepository, GameRepository gameRepository) {
         this.userRepository = userRepository;
         this.gameScheduleRepository = gameScheduleRepository;
+        this.gameRepository = gameRepository;
     }
 
     @Override
@@ -61,6 +65,37 @@ public class DBDataInitializer implements CommandLineRunner {
         gameScheduleRepository.save(schedule1);
         gameScheduleRepository.save(schedule2);
         gameScheduleRepository.save(schedule3);
+
+        Game game1 = new Game();
+        game1.setName("Football Game");
+        game1.setGameSchedule(schedule1);
+
+        Game game2 = new Game();
+        game2.setName("Football Game");
+        game2.setGameSchedule(schedule1);
+
+        Game game3 = new Game();
+        game3.setName("Football Game");
+        game3.setGameSchedule(schedule1);
+
+        Game game4 = new Game();
+        game4.setName("Football Game");
+        game4.setGameSchedule(schedule1);
+
+        Game game5 = new Game();
+        game5.setName("Football Game");
+        game5.setGameSchedule(schedule2);
+
+        Game game6 = new Game();
+        game6.setName("Football Game");
+        game6.setGameSchedule(schedule2);
+
+        gameRepository.save(game1);
+        gameRepository.save(game2);
+        gameRepository.save(game3);
+        gameRepository.save(game4);
+        gameRepository.save(game5);
+        gameRepository.save(game6);
         
     }
 }
