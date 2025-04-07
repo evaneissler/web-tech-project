@@ -23,7 +23,7 @@
     }
 
     .custom-button:hover{
-        background: rgb(27, 111, 221);
+        background: gray;
         color:white;
     }
 

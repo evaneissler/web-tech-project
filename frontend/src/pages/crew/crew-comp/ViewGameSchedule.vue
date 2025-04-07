@@ -1,7 +1,7 @@
 <template>
     <div>
-        View Game schedule
-        [view all crew that are working on that]
+        <!-- View Game schedule
+        [view all crew that are working on that] -->
     </div>
 </template>
 
