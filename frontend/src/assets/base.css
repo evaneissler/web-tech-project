@@ -1,0 +1,13 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* main css should be here */
+:root{
+  --main-background: rgb(245, 245, 245);
+  --tcu-purple-color:#4d1979;
+  --tcu-white-color:white;
+  --sub-button-color: rgb(231, 231, 231);
+}
