@@ -75,15 +75,15 @@ public class DBDataInitializer implements CommandLineRunner {
         game1.setGameSchedule(schedule1);
 
         Game game2 = new Game();
-        game2.setName("Football Game");
+        game2.setName("Baseball Game");
         game2.setGameSchedule(schedule1);
 
         Game game3 = new Game();
-        game3.setName("Football Game");
+        game3.setName("Basketball Game");
         game3.setGameSchedule(schedule1);
 
         Game game4 = new Game();
-        game4.setName("Football Game");
+        game4.setName("Soccer Game");
         game4.setGameSchedule(schedule1);
 
         Game game5 = new Game();
