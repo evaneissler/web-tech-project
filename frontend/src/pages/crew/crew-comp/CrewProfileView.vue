@@ -6,12 +6,20 @@
         [see all members]
         [search and view crew profile] -->
         <div class="crew-management">
-
+<!--
             <div class="search">
                 <input class="searchbar" type="search" placeholder="Search">
                 <CustomButton class="btn">Search</CustomButton>
                 <CustomButton class="fa fa-plus plus-button btn"> </CustomButton>
-            </div>
+            </div> -->
+
+
+
+
+
+
+            
+            <!-- view personal info -->
         </div>
         <hr>
 
@@ -25,7 +33,6 @@
 
 <script setup>
 import "@/assets/base.css";
-import CustomButton from '@/components/CustomButton.vue';
 
 
 </script>

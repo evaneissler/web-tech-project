@@ -1,6 +1,6 @@
 <template>
     <div>
-        Crew Profile
+        managening crew Profile
     </div>
 </template>
 

@@ -32,9 +32,11 @@ import ViewGameSchedule from "./crew-comp/ViewGameSchedule.vue";
 <div class="container-admin">
     <div class="admin-functions">
         <CustomButton @custom-click="currentOnPanel = 'ViewGameSchedule'" >Schedule</CustomButton>
-        <CustomButton @custom-click="currentOnPanel = 'CrewAvailable'"> Availability</CustomButton>
-        <CustomButton @custom-click="currentOnPanel = 'GameSchedule'"> Game</CustomButton>
-        <CustomButton @custom-click="currentOnPanel = 'CrewProfileView'" > Crew</CustomButton>
+        <!-- <CustomButton @custom-click="currentOnPanel = 'CrewAvailable'"> Availability</CustomButton> -->
+
+        <!-- change to submit availability -->
+        <CustomButton @custom-click="currentOnPanel = 'GameSchedule'"> Submit</CustomButton>
+        <CustomButton @custom-click="currentOnPanel = 'CrewProfileView'" > Profile</CustomButton>
     </div>
 
     <div class="currentTab">
