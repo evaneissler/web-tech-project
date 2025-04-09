@@ -6,28 +6,13 @@
         [see all members]
         [search and view crew profile] -->
         <div class="crew-management">
-<!--
-            <div class="search">
-                <input class="searchbar" type="search" placeholder="Search">
-                <CustomButton class="btn">Search</CustomButton>
-                <CustomButton class="fa fa-plus plus-button btn"> </CustomButton>
-            </div> -->
-
-
-
-
-
-
-            
-            <!-- view personal info -->
+            <div class="photo-name">
+                <img src="/img/image.png" alt="">
+                <h1>John Jour</h1>
+                <p>Roles: </p>
+            </div>
         </div>
         <hr>
-
-        <div class="crew-profiles">
-            
-        </div>
-
-
     </div>
 </template>
 
@@ -38,11 +23,6 @@ import "@/assets/base.css";
 </script>
 
 <style scoped>
-
-    .btn{
-        background: white;
-        color:black;
-    }
     .crew-management{
         display: flex;
         flex-direction: column;
@@ -52,31 +32,10 @@ import "@/assets/base.css";
         padding:0.5rem;
     }
 
-    .search{
-        display: flex;
-        justify-content: center;
-        width: 100%;
+    img{
+        height: 200px;
+        width: 200px;
+        border-radius: 100%;
     }
 
-    .searchbar{
-        width: 50%;
-        border-radius: 10px;
-        font-weight: bolder;
-        padding-left: 15px;
-        margin-right: 1rem;
-        border: 1px solid lightgray;
-    }
-
-    .plus-button{
-        font-size: 1.5rem;
-        margin-left: 1.5rem;
-    }
-    .plus-button > *{
-        font-size: 1.5rem;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        /* margin-left:10px; */
-    }
 </style>
