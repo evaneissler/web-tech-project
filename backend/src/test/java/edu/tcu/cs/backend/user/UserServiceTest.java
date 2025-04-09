@@ -127,5 +127,46 @@ class UserServiceTest {
                 .hasMessage("Could not find user with Id 1 :(");
         verify(this.userRepository, times(1)).findById(Mockito.any(Integer.class));
     }
+
+    @Test
+    void testFindByPositionSuccess() {
+        User user = new User();
+        user.setId(1);
+        user.setFirstName("Lily");
+        user.setLastName("Thomas");
+        user.setPassword("123456");
+        user.setRole("USER");
+        user.addPosition("Director");
+        user.addPosition("Producer");
+
+        User user2 = new User();
+        user2.setId(2);
+        user2.setFirstName("David");
+        user2.setLastName("Banks");
+        user2.setPassword("123456");
+        user2.setRole("ADMIN");
+        user2.addPosition("Producer");
+
+        List<User> users = new ArrayList<>();
+        users.add(user);
+        users.add(user2);
+
+        given(this.userRepository.findAll()).willReturn(users);
+
+        // When. Act on the target behavior. Act steps should cover the method to be tested.
+        List<User> returnedUsers = this.userService.findByPosition("Producer");
+
+        // Then. Assert expected outcomes.
+        assertThat(returnedUsers.size()).isEqualTo(2);
+        assertThat(returnedUsers.get(0).getId()).isEqualTo(users.get(0).getId());
+        assertThat(returnedUsers.get(0).getFirstName()).isEqualTo(users.get(0).getFirstName());
+        assertThat(returnedUsers.get(0).getPositions().get(0)).isEqualTo(users.get(0).getPositions().get(0));
+
+        assertThat(returnedUsers.get(1).getId()).isEqualTo(users.get(1).getId());
+        assertThat(returnedUsers.get(1).getFirstName()).isEqualTo(users.get(1).getFirstName());
+        assertThat(returnedUsers.get(1).getPositions().get(0)).isEqualTo(users.get(1).getPositions().get(0));
+
+        verify(this.userRepository, times(1)).findAll();
+    }
 }
 

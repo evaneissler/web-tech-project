@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -28,5 +29,11 @@ public class UserService {
     public User findById(int id) throws ObjectNotFoundException {
         return this.userRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("user", id));
+    }
+
+    public List<User> findByPosition(String position) throws ObjectNotFoundException {
+        return this.userRepository.findAll().stream()
+                .filter(user -> user.getPositions() != null && user.getPositions().contains(position))
+                .collect(Collectors.toList());
     }
 }

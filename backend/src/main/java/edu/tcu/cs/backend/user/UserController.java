@@ -25,7 +25,6 @@ public class UserController {
     @PostMapping
     public Result addUser(@RequestBody User newUser) {
         User savedUser = this.userService.save(newUser);
-        //UserDto savedUserDto = this.userToUserDtoConverter.convert(savedUser);
         return new Result(true, StatusCode.SUCCESS, "Add Success", savedUser);
     }
 
@@ -42,4 +41,5 @@ public class UserController {
         this.userService.save(foundUser);
         return new Result(true, StatusCode.SUCCESS, "Disable Success", foundUser);
     }
+
 }
