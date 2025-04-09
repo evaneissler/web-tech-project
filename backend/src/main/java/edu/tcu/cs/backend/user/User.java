@@ -1,10 +1,13 @@
 package edu.tcu.cs.backend.user;
 
 import edu.tcu.cs.backend.availability.Availability;
+import edu.tcu.cs.backend.system.StringListConverter;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "users")
@@ -20,7 +23,9 @@ public class User implements Serializable {
     private String phoneNumber;
     private String password;
     private String role;
-    private String positions; // Stored in comma separated values
+
+    @Convert(converter = StringListConverter.class)
+    private List<String> positions = new ArrayList<>();
 
     private Boolean enabled = true;
 
@@ -69,9 +74,17 @@ public class User implements Serializable {
 
     public void setRole(String role) { this.role = role; }
 
-    public String getPositions() { return positions; }
+    public List<String> getPositions() {
+        return positions;
+    }
 
-    public void setPositions(String positions) { this.positions = positions; }
+    public void addPosition(String position) {
+        this.positions.add(position);
+    }
+
+    public void removePosition(String position) {
+        this.positions.remove(position);
+    }
 
     public Boolean getEnabled() { return enabled; }
 

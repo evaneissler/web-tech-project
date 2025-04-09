@@ -39,6 +39,10 @@ public class DBDataInitializer implements CommandLineRunner {
         user1.setEmail("john@doe.com");
         user1.setPassword("password");
         user1.setRole("USER");
+        user1.addPosition("Director");
+        user1.addPosition("Producer");
+        user1.addPosition("Manager");
+        user1.removePosition("Manager");
         userRepository.save(user1);
 
         User user2 = new User();
@@ -47,6 +51,7 @@ public class DBDataInitializer implements CommandLineRunner {
         user2.setEmail("jane@smith.com");
         user2.setPassword("password");
         user2.setRole("ADMIN");
+        user2.addPosition("Camera Operator");
         userRepository.save(user2);
 
         User user3 = new User();

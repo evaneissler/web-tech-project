@@ -124,4 +124,5 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.data.role").value("USER"))
                 .andExpect(jsonPath("$.data.enabled").value(false));
     }
+
 }
