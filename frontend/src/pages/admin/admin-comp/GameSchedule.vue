@@ -16,8 +16,12 @@
 
 
             <div class="action-buttons">
-                <CustomButton @custom-click="scheduleActive = !scheduleActive ">Add Schedule</CustomButton>
-                <CustomButton @custom-click="gameActive = !gameActive ">Add Game</CustomButton>
+                <CustomButton @custom-click="scheduleActive = !scheduleActive;
+                gameActive = !scheduleActive;
+                ">Add Schedule</CustomButton>
+                <CustomButton @custom-click="gameActive = !gameActive;
+                !scheduleActive
+                ">Add Game</CustomButton>
             </div>
         </div>
         <hr>
@@ -26,8 +30,9 @@
         <!-- ********************************************** -->
         <div class="pop-container">
             <div class="pop-schedule" :class="{'isInActive': scheduleActive}">
-
-                <form class="pop-schedule-form">
+                <form class="pop-schedule-form" @submit.prevent="gameScheduleHandler">
+                    <h1 class="form-title">New Schedule Form</h1>
+                    <hr>
                     <input v-model="sportsName" type="text" placeholder="Sport Name">
                     <input v-model="seasonRange" type="text" placeholder="Season Range">
 
@@ -37,19 +42,21 @@
 
 
             <div class="pop-game">
-                <form class="pop-game-form" :class="{'isInActive': gameActive}">
-                    <input type="date" id="game-date" placeholder="">
-                    <input type="text" placeholder="Venue">
-                    <input type="opponent" placeholder="Opponent">
+                <form class="pop-game-form" :class="{'isInActive': gameActive}" @submit.prevent="gameAddHandler">
+                    <h1 class="form-title">New Game Form</h1>
+                    <hr>
+                    <input v-model="gameDate" type="date" id="game-date" placeholder="">
+                    <input v-model="gameVenue" type="text" placeholder="Venue">
+                    <input v-model="gameOpponent" type="opponent" placeholder="Opponent">
 
                     <label for="isFinalized">Set Up Complete?</label>
-                    <select name="isFinalized" id="">
+                    <select v-model="gameIsFinalized" name="isFinalized" id="">
                         <option value="true" selected>True</option>
                         <option value="false">False</option>
                     </select>
 
                     <label for="schedule-id">Schedule</label>
-                    <select name="schedule-id" id="schedule-id">
+                    <select v-model="gameScheduleId" name="schedule-id" id="schedule-id">
                         <option value="3001" selected>3001</option>
                         <option value="3001">3001</option>
                     </select>
@@ -119,7 +126,7 @@ function getGameID(selectedID){
 const sportsName = ref("");
 const seasonRange = ref("");
 
-const handlerForm = () =>{
+const gameScheduleHandler = () =>{
     const newSchedule = {
         sports_name: sportsName.value,
         season_name: seasonRange.value
@@ -142,12 +149,58 @@ const handlerForm = () =>{
     })
 }
 
+// admin adding a new game
+// ***********************
+const gameDate = ref("");
+const gameVenue = ref("");
+const gameOpponent = ref("");
+const gameIsFinalized = ref(null);
+const gameScheduleId = ref(0);
+
+
+
+const gameAddHandler = () =>{
+    const newGame = {
+        date : gameDate.value,
+        venue : gameVenue.value,
+        opponent : gameOpponent.value,
+        isFinalized: gameIsFinalized.value,
+        scheduleID:gameScheduleId.value
+    }
+
+    // *******************************
+    // Remind back end to add this url.
+    // *******************************
+    const addNewGame_url = `http://localhost:8080/api/v1/${scheduleID}/games`
+    fetch(addNewGame_url, {
+        method: "POST",
+        headers:{
+            "Content-Type":"application/json",
+        },
+        body:JSON.stringify(newGame),
+    })
+    .then((res) => res.json())
+    .then((data) =>{
+        console.log(data.data);
+    })
+    .catch((error) =>{
+        console.error("There was an error: ", error);
+    })
+}
 
 
 </script>
 <!-- ********************** style -->
 
 <style scoped>
+
+    .form-title{
+        font-size: 1.2rem;
+        text-align: center;
+        font-weight: bold;
+    }
+
+
     .item-div{
         background: rgb(238, 238, 238);
         display: flex;
@@ -175,6 +228,7 @@ const handlerForm = () =>{
         display: flex;
         justify-content: space-around;
         /* background: red; */
+        /* flex-direction: column; */
         padding: 10px;
     }
 
@@ -193,6 +247,7 @@ const handlerForm = () =>{
         justify-content: center;
         border-radius: 10px;
     }
+
 
     .pop-game-form > *{
         padding: 10px;

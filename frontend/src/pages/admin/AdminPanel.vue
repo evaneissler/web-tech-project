@@ -1,7 +1,7 @@
 <script>
 import "@/assets/base.css";
 import CustomButton from '@/components/CustomButton.vue';
-import CrewProfile from './admin-comp/CrewProfile.vue';
+import CrewProfile from './admin-comp/CrewProfiles.vue';
 import GameSchedule from "./admin-comp/GameSchedule.vue";
 import Games from './admin-comp/Games.vue';
 import HeaderAdmin from './admin-comp/HeaderAdmin.vue';
