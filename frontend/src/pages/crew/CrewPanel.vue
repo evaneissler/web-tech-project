@@ -2,7 +2,7 @@
 import "@/assets/base.css";
 import CustomButton from '@/components/CustomButton.vue';
 import CrewAvailable from "./crew-comp/CrewAvailable.vue";
-import CrewProfileView from "./crew-comp/CrewProfileView.vue";
+import CrewProfileView from "./crew-comp/CrewProfile.vue";
 import GameSchedule from "./crew-comp/GameSchedule.vue";
 import HeaderCrew from "./crew-comp/HeaderCrew.vue";
 import ViewGameSchedule from "./crew-comp/ViewGameSchedule.vue";

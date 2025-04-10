@@ -5,6 +5,7 @@
 </template>
 
 <script>
+    import "@/assets/base.css";
     export default {
         name: 'CustomButton'
     };
@@ -12,7 +13,7 @@
 
 <style scoped>
     .custom-button{
-        background:rgb(27, 150, 221);
+        background:var(--tcu-purple-color);
         color:white;
         font-size: 1.2rem;
         padding: 10px;
@@ -23,8 +24,8 @@
     }
 
     .custom-button:hover{
-        background: gray;
-        color:white;
+        background: white;
+        color:black;
     }
 
 </style>
