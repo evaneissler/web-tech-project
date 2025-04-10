@@ -20,7 +20,7 @@ import ViewGameSchedule from "./crew-comp/ViewGameSchedule.vue";
         },
         data(){
             return {
-                currentOnPanel: null
+                currentOnPanel: ViewGameSchedule
             }
         }
     }
@@ -43,7 +43,6 @@ import ViewGameSchedule from "./crew-comp/ViewGameSchedule.vue";
 </div>
 
 </template>
-
 
 
 <style scoped>

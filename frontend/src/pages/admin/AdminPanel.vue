@@ -2,8 +2,8 @@
 import "@/assets/base.css";
 import CustomButton from '@/components/CustomButton.vue';
 import CrewProfile from './admin-comp/CrewProfile.vue';
-import CrewSchedule from "./admin-comp/CrewSchedule.vue";
-import GameSchedule from './admin-comp/GameSchedule.vue';
+import GameSchedule from "./admin-comp/GameSchedule.vue";
+import Games from './admin-comp/Games.vue';
 import HeaderAdmin from './admin-comp/HeaderAdmin.vue';
 import Invite from "./admin-comp/Invite.vue";
 
@@ -13,14 +13,14 @@ import Invite from "./admin-comp/Invite.vue";
         components:{
             HeaderAdmin,
             CustomButton,
-            GameSchedule,
+            Games,
             CrewProfile,
-            CrewSchedule,
+            GameSchedule,
             Invite
         },
         data(){
             return {
-                currentOnPanel: null
+                currentOnPanel: Games
             }
         }
     }
@@ -31,8 +31,8 @@ import Invite from "./admin-comp/Invite.vue";
 
 <div class="container-admin">
     <div class="admin-functions">
-        <CustomButton @custom-click="currentOnPanel = 'GameSchedule'" >Game</CustomButton>
-        <CustomButton @custom-click="currentOnPanel = 'CrewSchedule'"> Schedule</CustomButton>
+        <CustomButton @custom-click="currentOnPanel = 'Games'" >Game</CustomButton>
+        <CustomButton @custom-click="currentOnPanel = 'GameSchedule'"> Schedule</CustomButton>
         <CustomButton @custom-click="currentOnPanel = 'CrewProfile'" >Crew</CustomButton>
         <CustomButton @custom-click="currentOnPanel = 'Invite'"> Invite</CustomButton>
     </div>
