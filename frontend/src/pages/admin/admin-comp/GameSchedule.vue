@@ -17,10 +17,10 @@
 
             <div class="action-buttons">
                 <CustomButton @custom-click="scheduleActive = !scheduleActive;
-                gameActive = !scheduleActive;
+                scheduleActive? gameActive= false: gameActive=false;
                 ">Add Schedule</CustomButton>
                 <CustomButton @custom-click="gameActive = !gameActive;
-                !scheduleActive
+                gameActive? scheduleActive= false: scheduleActive=false;
                 ">Add Game</CustomButton>
             </div>
         </div>
