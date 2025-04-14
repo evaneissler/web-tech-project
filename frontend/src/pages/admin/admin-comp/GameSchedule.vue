@@ -80,7 +80,9 @@
             <span> FootBall </span>
             <span> 2024-25 </span>
             <span>
-                <CustomButton>Delete Schedule</CustomButton>
+                <CustomButton>
+                    🔧
+                </CustomButton>
             </span>
         </div>
     </div>

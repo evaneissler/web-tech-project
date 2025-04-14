@@ -20,7 +20,7 @@ import Invite from "./admin-comp/Invite.vue";
         },
         data(){
             return {
-                currentOnPanel: Games
+                currentOnPanel: GameSchedule
             }
         }
     }

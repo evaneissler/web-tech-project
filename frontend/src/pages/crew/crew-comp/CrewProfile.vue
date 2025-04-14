@@ -1,10 +1,11 @@
 <style scoped>
     .crew-profile-container{
-        /* background: red; */
+        /* display: flex; */
     }
 
     .personal-details{
         /* background: red; */
+        height: 30vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -16,26 +17,20 @@
         height: 200px;
         width: 200px;
         object-fit: cover;
+        margin: 10px;
     }
 
-    .user-name{
-        font-size: 1.5rem;
-        font-weight: bold;
+    .name-bio{
+        background: rgb(236, 236, 236);
+        height: calc(89vh - 30vh);
+        display: flex;
+        padding-top: 10px;
+        justify-content: space-around;
     }
 
     .roles-container{
         display: flex;
         flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-
-    .roles{
-        height: 5vh;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
     }
 
 </style>
@@ -45,23 +40,23 @@
             <div class="img-holder">
                 <img class="img" src="https://placehold.co/400" alt="">
             </div>
-            <div class="name-bio">
-                <h1 class="user-name">First & Last Name</h1>
+        </div>
+        <hr>
+
+        <div class="name-bio">
+            <div class="name-email">
+                <h1 class="user-name"> First & Last Name</h1>
                 <a href="mailto:l.first@tcu.edu">l.first@tcu.edu</a>
             </div>
 
             <div class="roles-container">
-                <div class="roles-title">
-                    <h1 class="roles-title">Roles</h1>
-                </div>
-                <div class="roles">
-                    <span>Video graher </span>
-                    <span>Interviewer </span>
-                    <span>Cheerleader</span>
-                </div>
+                <ul>
+                    <li>Video graher</li>
+                    <li>Interviewer</li>
+                    <li>Cheerleader</li>
+                </ul>
             </div>
         </div>
-        <hr>
     </div>
 </template>
 
