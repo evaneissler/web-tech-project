@@ -1,12 +1,12 @@
-package edu.tcu.cs.backend.availability;
+package edu.tcu.cs.backend.crewSchedule;
+
 
 import edu.tcu.cs.backend.game.Game;
 import edu.tcu.cs.backend.user.User;
 import jakarta.persistence.*;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Entity
-public class Availability {
+public class CrewSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -19,7 +19,7 @@ public class Availability {
     @JoinColumn(name = "game_id")
     private Game game;
 
-    public Availability() {}
+    public CrewSchedule() {}
 
     public User getUser() {
         return this.user;
@@ -45,3 +45,4 @@ public class Availability {
         this.id = i;
     }
 }
+

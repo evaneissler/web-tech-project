@@ -49,7 +49,6 @@ class AvailabilityServiceTest {
         Availability availability = new Availability();
         availability.setUser(user);
         availability.setGame(game);
-        availability.setAssigned(true);
 
         // Simulate repository returns
         given(userRepository.findById(1)).willReturn(Optional.of(user));
@@ -83,7 +82,6 @@ class AvailabilityServiceTest {
         Availability availability1 = new Availability();
         availability1.setUser(user);
         availability1.setGame(game);
-        availability1.setAssigned(true);
         availability.add(availability1);
 
         given(availabilityRepository.findByGameId(1)).willReturn(availability);
