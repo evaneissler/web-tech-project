@@ -3,6 +3,8 @@
         <div class="add-game">
             <div class="title">
                 <h1 class="all-game-title">Games {2024-25} Season</h1>
+                <CustomButton @custom-click="gameActive = !gameActive;
+                ">Add Game</CustomButton>
             </div>
             <hr>
             <!-- <div class="add-tab">
@@ -91,6 +93,16 @@ function getGameID(selectedID){
     .item-div > span{
         margin: 1.5rem;
 
+    }
+
+    .title{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .title > *{
+        height: fit-content;
     }
 
     .all-game-title{

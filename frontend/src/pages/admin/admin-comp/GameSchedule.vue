@@ -3,6 +3,9 @@
         <div class="add-game">
             <div class="title">
                 <h1 class="all-game-title">Games Schedules</h1>
+                <CustomButton @custom-click="scheduleActive = !scheduleActive;
+
+">Add Schedule</CustomButton>
                 <hr>
             </div>
             <!-- adding game form as a sub header will go here -->
@@ -16,12 +19,6 @@
 
 
             <div class="action-buttons">
-                <CustomButton @custom-click="scheduleActive = !scheduleActive;
-                gameActive = !scheduleActive;
-                ">Add Schedule</CustomButton>
-                <CustomButton @custom-click="gameActive = !gameActive;
-                !scheduleActive
-                ">Add Game</CustomButton>
             </div>
         </div>
         <hr>
@@ -80,9 +77,7 @@
             <span> FootBall </span>
             <span> 2024-25 </span>
             <span>
-                <CustomButton>
-                    🔧
-                </CustomButton>
+                <CustomButton>🔧</CustomButton>
             </span>
         </div>
     </div>
@@ -202,6 +197,15 @@ const gameAddHandler = () =>{
         font-weight: bold;
     }
 
+    .title{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .title > *{
+        height: fit-content;
+    }
 
     .item-div{
         background: rgb(238, 238, 238);
