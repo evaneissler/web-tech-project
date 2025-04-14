@@ -2,6 +2,8 @@ package edu.tcu.cs.backend.system;
 
 import edu.tcu.cs.backend.availability.Availability;
 import edu.tcu.cs.backend.availability.AvailabilityRepository;
+import edu.tcu.cs.backend.crewSchedule.CrewSchedule;
+import edu.tcu.cs.backend.crewSchedule.CrewScheduleRepository;
 import edu.tcu.cs.backend.game.Game;
 import edu.tcu.cs.backend.game.GameRepository;
 import edu.tcu.cs.backend.gameSchedule.GameSchedule;
@@ -22,12 +24,14 @@ public class DBDataInitializer implements CommandLineRunner {
     private final GameScheduleRepository gameScheduleRepository;
     private final GameRepository gameRepository;
     private final AvailabilityRepository availabilityRepository;
+    private final CrewScheduleRepository crewScheduleRepository;
 
-    public DBDataInitializer(UserRepository userRepository, GameScheduleRepository gameScheduleRepository, GameRepository gameRepository, AvailabilityRepository availabilityRepository) {
+    public DBDataInitializer(UserRepository userRepository, GameScheduleRepository gameScheduleRepository, GameRepository gameRepository, AvailabilityRepository availabilityRepository, CrewScheduleRepository crewScheduleRepository) {
         this.userRepository = userRepository;
         this.gameScheduleRepository = gameScheduleRepository;
         this.gameRepository = gameRepository;
         this.availabilityRepository = availabilityRepository;
+        this.crewScheduleRepository = crewScheduleRepository;
     }
 
     @Override
@@ -111,6 +115,22 @@ public class DBDataInitializer implements CommandLineRunner {
         availability3.setGame(game6);
         availability3.setUser(user3);
 
+        CrewSchedule crewSchedule1 = new CrewSchedule();
+        crewSchedule1.setGame(game1);
+        crewSchedule1.setUser(user1);
+
+        CrewSchedule crewSchedule2 = new CrewSchedule();
+        crewSchedule2.setGame(game2);
+        crewSchedule2.setUser(user1);
+
+        CrewSchedule crewSchedule3 = new CrewSchedule();
+        crewSchedule3.setGame(game2);
+        crewSchedule3.setUser(user2);
+
+        CrewSchedule crewSchedule4 = new CrewSchedule();
+        crewSchedule4.setGame(game2);
+        crewSchedule4.setUser(user3);
+
         gameRepository.save(game1);
         gameRepository.save(game2);
         gameRepository.save(game3);
@@ -121,6 +141,11 @@ public class DBDataInitializer implements CommandLineRunner {
         availabilityRepository.save(availability1);
         availabilityRepository.save(availability2);
         availabilityRepository.save(availability3);
-        
+
+        crewScheduleRepository.save(crewSchedule1);
+        crewScheduleRepository.save(crewSchedule2);
+        crewScheduleRepository.save(crewSchedule3);
+        crewScheduleRepository.save(crewSchedule4);
+
     }
 }
