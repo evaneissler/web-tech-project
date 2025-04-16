@@ -1,59 +1,60 @@
 <template>
-    <nav class="flex justify-around nav-custom">
-        <div class="logo">
-            <router-link to="/admins-panel" class="frogcrew">FrogCrew | Admin</router-link>
-        </div>
-
-        <div class="flex custom-list" >
-            <div></div>
-            <div class="innercontainer">
-                <router-link to="/admin-profile">My Profile </router-link>
+    <div>
+        <nav class="nav">
+            <div class="logo">
+                <h1 class="home-admin" >
+                    <router-link to="/admins">FrogCrew | Admin</router-link>
+                </h1>
             </div>
-        </div>
-    </nav>
+
+            <div class="sub-links">
+                <router-link to="/admins/schedule">Schedule</router-link>
+                <router-link to="/admins/invite">Invite</router-link>
+                <router-link to="/admins/crew">Crew</router-link>
+            </div>
+            <div class="profile">
+                <router-link to="/admins/profile">Profile</router-link>
+            </div>
+        </nav>
+        <hr>
+    </div>
 </template>
 
 <script setup>
-import "@/assets/base.css";
+
 </script>
 
-<style scoped>
+<style  scoped>
     .logo{
-        width: 30%;
         display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-
-    .frogcrew{
-        font-size: 1.5rem;
-    }
-
-    .nav-custom{
-        background:var(--tcu-purple-color);
-        font-weight: bold;
-        padding: 1rem;
-        color: var(--tcu-white-color);
-        height: 10vh;
-    }
-
-    .custom-list{
-        display: flex;
-        width: 100%;
         /* background: red; */
-        justify-content: space-between;
+    }
+
+    .logo *{
+        text-decoration: none;
+    }
+
+    .nav{
+        /* background: green; */
+        display: flex;
+        justify-content: space-evenly;
+        width: calc(100vw - 2vw);
+        padding: 10px;
         align-items: center;
     }
 
-    .innercontainer{
+    .sub-links{
+        width: 60%;
         display: flex;
-        width: 30%;
-        justify-content: space-around;
+        gap: 10%;
+        justify-content: center;
     }
 
-    .custom-list > a{
-        font-weight: bold;
-        display: flex;
+    .sub-links > *, .profile > *{
+        text-decoration: none;
+    }
+
+    .home-admin{
+        cursor: pointer;
     }
 </style>

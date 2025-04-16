@@ -18,7 +18,7 @@
                     id="password"
                     name="password" required>
                 </div>
-                <CustomButton>Login</CustomButton>
+                <ButtonC>Login</ButtonC>
             </form>
         </div>
     </div>
@@ -26,7 +26,7 @@
 
 <script setup>
 import "@/assets/base.css";
-import CustomButton from '@/components/CustomButton.vue';
+import ButtonC from "@/components/ButtonC.vue";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
