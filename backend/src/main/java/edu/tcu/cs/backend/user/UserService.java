@@ -2,19 +2,25 @@ package edu.tcu.cs.backend.user;
 
 import edu.tcu.cs.backend.system.exception.ObjectNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class UserService {
+public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    private final PasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<User> findAll() {
@@ -22,7 +28,7 @@ public class UserService {
     }
 
     public User save(User newUser) {
-//        newUser.setPassword(newUser.getPassword());
+        newUser.setPassword(this.passwordEncoder.encode(newUser.getPassword()));
         return this.userRepository.save(newUser);
     }
 
@@ -35,5 +41,12 @@ public class UserService {
         return this.userRepository.findAll().stream()
                 .filter(user -> user.getPositions() != null && user.getPositions().contains(position))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return this.userRepository.findByEmail(email)
+                .map(user -> new MyUserPrincipal(user))
+                .orElseThrow(() -> new UsernameNotFoundException("User " + email + " is not found"));
     }
 }
