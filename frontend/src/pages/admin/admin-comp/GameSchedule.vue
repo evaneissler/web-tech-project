@@ -5,7 +5,7 @@
     <!-- ********************************** -->
     <div class="subhead-schedule">
         <h1>Schedule Tab</h1>
-        <ButtonC @custom-event="HideForm = !HideForm">Add</ButtonC>
+        <ButtonC @custom-event="HideForm = !HideForm">{{ HideForm ? "Add" : "Close" }}</ButtonC>
     </div>
 
 
@@ -21,7 +21,7 @@
             <input required v-model="sportName" type="text" placeholder="Sport">
             <input required v-model="seasonName" type="text" placeholder="Season">
             <div class="btns">
-                <ButtonC>Submit</ButtonC>
+                <ButtonC>Save</ButtonC>
             </div>
         </form>
     </div>
@@ -46,10 +46,11 @@
             <span>{{item.sport}}</span>
             <span>{{item.season}}</span> -->
 
-            <span>{{item.id}}</span>
-            <span>{{item.name }}</span>
-            <span> {{ item.games.length }} Game(s) </span>
-
+            <router-link class="schedule-detail" :to="{ name: 'Schedule', params: { id: item.id }}">
+                <span>{{item.id}}</span>
+                <span>{{item.name }}</span>
+                <span> {{ item.games.length }} Game(s) </span>
+            </router-link>
         </div>
 
     </div>
@@ -212,6 +213,14 @@ fetch(availableSchedule)
         width: 100%;
         justify-content: space-around;
         background: rgb(240, 240, 240);
+        align-items: center;
+    }
+
+    .schedule-detail{
+        text-decoration: none;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
         align-items: center;
     }
 </style>

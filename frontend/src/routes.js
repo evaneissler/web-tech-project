@@ -3,6 +3,7 @@ import HomeView from "./pages/HomeView.vue";
 import AdminPanel from "./pages/admin/AdminPanel.vue";
 import CrewProfiles from "./pages/admin/admin-comp/CrewProfiles.vue";
 import GameSchedule from "./pages/admin/admin-comp/GameSchedule.vue";
+import Games from "./pages/admin/admin-comp/Games.vue";
 import Invite from "./pages/admin/admin-comp/Invite.vue";
 import CrewPanel from "./pages/crew/CrewPanel.vue";
 
@@ -21,7 +22,8 @@ const routes = [
         name: "Admin Main Panel",
         component: AdminPanel,
         children:[
-            {path: "schedule", name:"Schedule", component: GameSchedule},
+            {path: "schedules", name:"Schedules", component: GameSchedule, props: true},
+            {path:"schedules/:id/games", name:"Schedule", component: Games, props: true},
             {path:"crew", name:"crews", component: CrewProfiles},
             {path:"invite", name:"invite", component: Invite},
             {path:"profile", name:"profile"}

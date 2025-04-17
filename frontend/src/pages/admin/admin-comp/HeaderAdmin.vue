@@ -8,7 +8,7 @@
             </div>
 
             <div class="sub-links">
-                <router-link to="/admins/schedule">Schedule</router-link>
+                <router-link to="/admins/schedules">Schedule</router-link>
                 <router-link to="/admins/invite">Invite</router-link>
                 <router-link to="/admins/crew">Crew</router-link>
             </div>

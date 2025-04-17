@@ -16,5 +16,6 @@
         background:lightgray;
         border: none;
         font-weight: bold;
+        padding: 10px;
     }
 </style>
