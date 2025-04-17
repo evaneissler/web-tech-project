@@ -28,6 +28,9 @@ public class UserService implements UserDetailsService {
     }
 
     public User save(User newUser) {
+        if (newUser.getPassword() == null || newUser.getPassword().isEmpty()) {
+            throw new IllegalArgumentException("Password cannot be null or empty");
+        }
         newUser.setPassword(this.passwordEncoder.encode(newUser.getPassword()));
         return this.userRepository.save(newUser);
     }

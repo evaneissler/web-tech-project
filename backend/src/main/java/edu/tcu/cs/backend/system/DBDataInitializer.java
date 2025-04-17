@@ -13,6 +13,7 @@ import edu.tcu.cs.backend.user.User;
 import edu.tcu.cs.backend.user.UserRepository;
 import edu.tcu.cs.backend.user.UserService;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -21,16 +22,16 @@ import java.util.ArrayList;
 public class DBDataInitializer implements CommandLineRunner {
 
     private final UserRepository userRepository;
-    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     private final GameScheduleRepository gameScheduleRepository;
     private final GameRepository gameRepository;
     private final AvailabilityRepository availabilityRepository;
     private final CrewScheduleRepository crewScheduleRepository;
 
-    public DBDataInitializer(UserRepository userRepository, UserService userService, GameScheduleRepository gameScheduleRepository, GameRepository gameRepository, AvailabilityRepository availabilityRepository, CrewScheduleRepository crewScheduleRepository) {
+    public DBDataInitializer(UserRepository userRepository, PasswordEncoder passwordEncoder, GameScheduleRepository gameScheduleRepository, GameRepository gameRepository, AvailabilityRepository availabilityRepository, CrewScheduleRepository crewScheduleRepository) {
         this.userRepository = userRepository;
-        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
         this.gameScheduleRepository = gameScheduleRepository;
         this.gameRepository = gameRepository;
         this.availabilityRepository = availabilityRepository;
@@ -44,30 +45,30 @@ public class DBDataInitializer implements CommandLineRunner {
         user1.setFirstName("John");
         user1.setLastName("Doe");
         user1.setEmail("john@doe.com");
-        user1.setPassword("password");
+        user1.setPassword(passwordEncoder.encode("password"));
         user1.setRole("user");
         user1.addPosition("Director");
         user1.addPosition("Producer");
         user1.addPosition("Manager");
         user1.removePosition("Manager");
-        this.userService.save(user1);
+        this.userRepository.save(user1);
 
         User user2 = new User();
         user2.setFirstName("Jane");
         user2.setLastName("Smith");
         user2.setEmail("jane@smith.com");
-        user2.setPassword("password");
+        user2.setPassword(passwordEncoder.encode("password"));
         user2.setRole("admin");
         user2.addPosition("Camera Operator");
-        this.userService.save(user2);
+        this.userRepository.save(user2);
 
         User user3 = new User();
         user3.setFirstName("Jack");
         user3.setLastName("Brown");
         user3.setEmail("jack@brown.com");
-        user3.setPassword("password");
+        user3.setPassword(passwordEncoder.encode("password"));
         user3.setRole("user");
-        this.userService.save(user3);
+        this.userRepository.save(user3);
 
         GameSchedule schedule1 = new GameSchedule();
         schedule1.setName("Football Schedule");

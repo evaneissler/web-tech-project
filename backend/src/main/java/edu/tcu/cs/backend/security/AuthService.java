@@ -9,26 +9,19 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.tcu.cs.backend.user.converter.UserToUserDtoConverter;
-import edu.tcu.cs.backend.user.dto.UserDto;
-
 @Service
 public class AuthService {
 
     private final JwtProvider jwtProvider;
 
-    private final UserToUserDtoConverter userToUserDtoConverter;
-
-    public AuthService(JwtProvider jwtProvider, UserToUserDtoConverter userToUserDtoConverter) {
+    public AuthService(JwtProvider jwtProvider) {
         this.jwtProvider = jwtProvider;
-        this.userToUserDtoConverter = userToUserDtoConverter;
     }
 
     public Map<String, Object> createLoginInfo(Authentication authentication) {
         // Create user info
         MyUserPrincipal principal = (MyUserPrincipal)authentication.getPrincipal();
         User user = principal.getUser();
-//        UserDto userDto = this.userToUserDtoConverter.convert(user);
 
         // Create JWT
         String token = this.jwtProvider.createToken(authentication);
