@@ -3,7 +3,7 @@ import './assets/main.css';
 import { createApp } from 'vue';
 import adminapi from './api/adminapi';
 import App from './App.vue';
-import router from './routes';
+import router from './routes/routes';
 
 
 const app = createApp(App);

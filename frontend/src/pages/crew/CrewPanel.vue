@@ -1,13 +1,13 @@
 <template>
-    <div>
-        <h1>Entry point for crew</h1>
-    </div>
+    <HeaderCrew/>
+    <main>
+        <router-view></router-view>
+    </main>
 </template>
 
 <script setup>
-
+import HeaderCrew from './crew-comp/HeaderCrew.vue';
 </script>
 
 <style scoped>
-
 </style>
