@@ -33,7 +33,7 @@ const routes = [
 
     // CREW LINKS
     {
-        path:"/crew-panel",
+        path:"/crew",
         name:"Crew Main Panel",
         component: CrewPanel
     }

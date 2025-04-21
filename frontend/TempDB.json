@@ -1,0 +1,239 @@
+{
+    "gameSchedule": {
+        "success": {
+            "flag": true,
+            "code": 200,
+            "message": "Find Success",
+            "data": [
+                {
+                    "gameId": 1,
+                    "scheduleId": 1,
+                    "gameDate": "2024-09-07",
+                    "venue": "Carter Stadium",
+                    "opponent": "LIU",
+                    "isFinalized": false
+                },
+                {
+                    "gameId": 2,
+                    "scheduleId": 1,
+                    "gameDate": "2024-09-14",
+                    "venue": "Carter Stadium",
+                    "opponent": "UCF",
+                    "isFinalized": false
+                },
+                {
+                    "gameId": 3,
+                    "scheduleId": 1,
+                    "gameDate": "2024-09-21",
+                    "venue": "DKR-Texas Memorial",
+                    "opponent": "Texas",
+                    "isFinalized": false
+                },
+                {
+                    "gameId": 4,
+                    "scheduleId": 2,
+                    "gameDate": "2024-10-01",
+                    "venue": "Amon G. Carter Stadium",
+                    "opponent": "OU",
+                    "isFinalized": false
+                },
+                {
+                    "gameId": 5,
+                    "scheduleId": 2,
+                    "gameDate": "2024-10-08",
+                    "venue": "AT&T Stadium",
+                    "opponent": "Baylor",
+                    "isFinalized": true
+                }
+            ]
+        },
+        "notFound": {
+            "flag": false,
+            "code": 404,
+            "message": "Could not find games for the provided schedule ID",
+            "data": null
+        }
+    },
+    "crewList": {
+        "success": {
+            "flag": true,
+            "code": 200,
+            "message": "Find Success",
+            "data": {
+                "gameId": 1,
+                "gameStart": "12:00",
+                "gameDate": "2024-09-07",
+                "venue": "Carter Stadium",
+                "opponent": "LIU",
+                "crewedMembers": [
+                    {
+                        "crewedUserId": 1,
+                        "userId": 1,
+                        "gameId": 1,
+                        "Position": "DIRECTOR",
+                        "fullName": "Alex Murphy",
+                        "ReportTime": "11:00",
+                        "ReportLocation": "Control Room"
+                    },
+                    {
+                        "crewedUserId": 2,
+                        "userId": 2,
+                        "gameId": 1,
+                        "Position": "PRODUCER",
+                        "fullName": "Jamie Lin",
+                        "ReportTime": "11:00",
+                        "ReportLocation": "Control Room"
+                    },
+                    {
+                        "crewedUserId": 3,
+                        "userId": 3,
+                        "gameId": 1,
+                        "Position": "CAMERA 1",
+                        "fullName": "Taylor Brooks",
+                        "ReportTime": "11:00",
+                        "ReportLocation": "Field"
+                    },
+                    {
+                        "crewedUserId": 4,
+                        "userId": 4,
+                        "gameId": 1,
+                        "Position": "GRAPHICS",
+                        "fullName": "Morgan Lee",
+                        "ReportTime": "11:00",
+                        "ReportLocation": "Truck"
+                    },
+                    {
+                        "crewedUserId": 5,
+                        "userId": 5,
+                        "gameId": 1,
+                        "Position": "REPLAY",
+                        "fullName": "Casey Jordan",
+                        "ReportTime": "11:00",
+                        "ReportLocation": "Truck"
+                    }
+                ]
+            }
+        },
+        "notFound": {
+            "flag": false,
+            "code": 404,
+            "message": "Could not find crew list for game with id 999",
+            "data": null
+        }
+    },
+    "availabilityBySeason": {
+        "success": {
+            "flag": true,
+            "code": 200,
+            "message": "Find Success",
+            "data": [
+                {
+                    "userId": 1,
+                    "gameId": 1,
+                    "availability": 1,
+                    "comment": "Good to go"
+                },
+                {
+                    "userId": 1,
+                    "gameId": 2,
+                    "availability": 0,
+                    "comment": "Out of town"
+                },
+                {
+                    "userId": 1,
+                    "gameId": 3,
+                    "availability": 2,
+                    "comment": "Maybe, depends on travel"
+                },
+                {
+                    "userId": 1,
+                    "gameId": 4,
+                    "availability": 1,
+                    "comment": "Available"
+                },
+                {
+                    "userId": 1,
+                    "gameId": 5,
+                    "availability": 1,
+                    "comment": "No issues"
+                }
+            ]
+        },
+        "badRequest": {
+            "flag": false,
+            "code": 400,
+            "message": "Provided arguments are invalid, see data for details.",
+            "data": {
+                "userId": "User id is required",
+                "season": "Season is required"
+            }
+        }
+    },
+    "notifications": {
+        "success": {
+            "flag": true,
+            "code": 200,
+            "message": "Find Success",
+            "data": [
+                {
+                    "notificationId": 101,
+                    "userId": 1,
+                    "message": "You have been assigned to Game 1",
+                    "isRead": false
+                },
+                {
+                    "notificationId": 102,
+                    "userId": 1,
+                    "message": "Schedule updated for Game 2",
+                    "isRead": true
+                },
+                {
+                    "notificationId": 103,
+                    "userId": 1,
+                    "message": "Availability confirmed for Game 3",
+                    "isRead": false
+                },
+                {
+                    "notificationId": 104,
+                    "userId": 1,
+                    "message": "New game added to your schedule",
+                    "isRead": false
+                },
+                {
+                    "notificationId": 105,
+                    "userId": 1,
+                    "message": "Your shift trade request was approved",
+                    "isRead": true
+                }
+            ]
+        },
+        "notFound": {
+            "flag": false,
+            "code": 404,
+            "message": "No notifications found for user 999",
+            "data": null
+        }
+    },
+    "positions": {
+        "success": {
+            "flag": true,
+            "code": 200,
+            "message": "Find Success",
+            "data": [
+                "DIRECTOR",
+                "PRODUCER",
+                "CAMERA 1",
+                "CAMERA 2",
+                "GRAPHICS",
+                "REPLAY",
+                "UTILITY"
+            ]
+        },
+        "serverError": {
+            "flag": false,
+            "code": 500,
+            "message": "Internal server error while retrieving positions",
+            "data": null
+        }
+    }
+}
