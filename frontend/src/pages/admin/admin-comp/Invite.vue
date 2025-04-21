@@ -17,41 +17,25 @@
 </template>
 
 <script setup>
+import adminapi from '@/api/adminapi';
 import ButtonC from '@/components/ButtonC.vue';
 import { ref } from 'vue';
 
 // ****************************************
 // getting all the emails and then proccessing them
 // ****************************************
-
 const emails = ref("");
-const emailsUrl = `http://localhost:8080/api/v1/invite`;
 const confirms = ref("");
 
 const sendEmailsRequest = async () =>{
+    const emailsStringtoArray = emails.value.split(",").map(email => email.trim());
+
     const emailsString = {
-        emails: emails.value
+        emails: emailsStringtoArray
     }
 
-    console.log(emails.value);
-
     try {
-            
-        const res = await fetch(emailsUrl, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(emailsString.value),
-        })
-
-        if(!res.ok){
-            throw new Error(`Error: ${res.status}`)
-        }
-    
-        const data = await res.json();
-        confirms.value = data.message || "Emails sent successfully";
-
+        confirms.value = adminapi.invite(emailsString) || "Emails sent successfully";
         emails.value = "";
     } catch (error) {
         confirms.value = error;

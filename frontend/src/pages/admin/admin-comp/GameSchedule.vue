@@ -58,15 +58,9 @@
 </template>
 
 <script setup>
+import adminapi from '@/api/adminapi';
 import ButtonC from '@/components/ButtonC.vue';
 import { ref } from 'vue';
-
-// ****************************************
-    // new schedule
-// ****************************************
-const availableSchedule = "http://localhost:8080/api/v1/gameSchedule";
-
-
 // true or false? show or hide
 let HideForm = ref(true);
 
@@ -80,8 +74,6 @@ let postResponse = ref("");
 
 const submitNewSchedule = async () =>{
     postResponse.value = "";
-
-
     // sports and seasons body
     const newSchedule = {
         sport: sportName.value,
@@ -89,21 +81,7 @@ const submitNewSchedule = async () =>{
     }
 
     try{
-        // submitting the new schedule
-        const res = await fetch(availableSchedule, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newSchedule),
-        })
-
-        if(!res.ok){
-            throw new Error(`Error: ${res.status}`)
-        }
-        
-        const data = await res.json();
-        postResponse.value = data.message || "Schedule added successfully"
+        postResponse.value = adminapi.addGameSchedule(newSchedule) || "Schedule added successfully"
 
         schedules.value.push({
             name: newSchedule.sport,
@@ -126,24 +104,20 @@ const submitNewSchedule = async () =>{
 // Fetching all schedules and showing them
 // ****************************************
 let schedules = ref([]);
+const loading = ref(true);
 
-fetch(availableSchedule)
-    .then(res =>{
-        if(!res.ok){
-            throw new Error(`Error: ${res.status}`)
-        }
-
-        return res.json();
-    })
-    .then(data =>{
-        schedules.value = data.data;
+const loadAllSchedules = async () =>{
+    try{
+        schedules.value = await adminapi.gameSchedule();
         console.log(schedules.value);
-    })
-    .catch(err =>{
+    }catch(err){
         console.log(err);
-    })
+    } finally {
+        loading.value = false;
+    }
+}
 
-    postResponse.value = "";
+loadAllSchedules();
 </script>
 
 

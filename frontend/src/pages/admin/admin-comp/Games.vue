@@ -71,6 +71,7 @@
 </template>
 
 <script setup>
+import adminapi from '@/api/adminapi';
 import ButtonC from '@/components/ButtonC.vue';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -82,34 +83,28 @@ let HideForm = ref(true);
 
 const route = useRoute();
 const scheduleId = route.params.id;
-const gamesUrl = `http://localhost:8080/api/v1/gameSchedule/${scheduleId}`;
 const availableGames = ref([]);
 const scheduleTitle = ref("");
 
 // ****************************************
 // fetching the schedule and getting the games
 // ****************************************
-fetch(gamesUrl)
-    .then(res =>{
-        if(!res.ok){
-            throw new Error(`Error: ${res.status}`)
-        }
-
-        return res.json();
-    })
-    .then(data =>{
-        availableGames.value = data.data.games;
-        scheduleTitle.value = data.data.name;
-    })
-    .catch(err =>{
+const loadAllGames = async () =>{
+    try{
+        availableGames.value = await adminapi.findAllGames(scheduleId);
+        console.log(availableGames.value);
+    } catch(err){
         console.log(err);
-    })
+    } finally {
+        loading.value = false;
+    }
+}
+
+loadAllGames();
 
 // ****************************************
 // Submitting new game/ Adding a new game
 // ****************************************
-
-const gameSubmitUrl = `http://localhost:8080/api/v1/gameSchedule/${scheduleId}/games`;
 const gamevenue = ref("");
 const gameopponent = ref("");
 const gamefinalized = ref("");
@@ -128,21 +123,7 @@ const submitNewGame = async () =>{
     }
 
     try{
-        // submitting the new game
-        const res = await fetch(gameSubmitUrl, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newGame),
-        })
-
-        if(!res.ok){
-            throw new Error(`Error: ${res.status}`)
-        }
-        
-        const data = await res.json();
-        postResponse.value = data.message || "Game added successfully"
+        postResponse.value = adminapi.addNewGame(scheduleId, newGame) || "Game added successfully"
 
         availableGames.value.push({
             name: newGame.gameDate,
