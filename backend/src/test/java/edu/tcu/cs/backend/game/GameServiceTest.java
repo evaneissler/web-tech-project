@@ -38,18 +38,28 @@ class GameServiceTest {
     @BeforeEach
     void setUp() {
         this.gameSchedule = new GameSchedule();
-        gameSchedule.setName("Football Schedule");
+        gameSchedule.setSport("Football Schedule");
+        gameSchedule.setSeason("Fall");
 
         Game game1 = new Game();
-        game1.setName("Football");
+        game1.setGameDate("2021-10-10");
+        game1.setVenue("Amon G Carter Stadium");
+        game1.setOpponent("SMU Mustangs");
+        game1.setIsFinalized(true);
         game1.setGameSchedule(this.gameSchedule);
 
         Game game2 = new Game();
-        game2.setName("Basketball");
+        game2.setGameDate("2021-10-10");
+        game2.setVenue("Amon G Carter Stadium");
+        game2.setOpponent("SMU Mustangs");
+        game2.setIsFinalized(true);
         game2.setGameSchedule(this.gameSchedule);
 
         Game game3 = new Game();
-        game3.setName("Baseball");
+        game3.setGameDate("2021-10-10");
+        game3.setVenue("Amon G Carter Stadium");
+        game3.setOpponent("SMU Mustangs");
+        game3.setIsFinalized(true);
         game3.setGameSchedule(this.gameSchedule);
 
         this.games = new ArrayList<>();
@@ -72,12 +82,16 @@ class GameServiceTest {
     @Test
     void testFindByIdSuccess() {
         GameSchedule schedule = new GameSchedule();
-        schedule.setName("Football Schedule");
+        schedule.setSport("Football Schedule");
+        schedule.setSeason("Fall");
         schedule.setId(1);
 
         Game game = new Game();
         game.setId(1);
-        game.setName("Football");
+        game.setGameDate("2021-10-10");
+        game.setVenue("Amon G Carter Stadium");
+        game.setOpponent("SMU Mustangs");
+        game.setIsFinalized(true);
         game.setGameSchedule(schedule);
 
         given(this.gameRepository.findById(1)).willReturn(Optional.of(game)); // Define the behavior of the mock object.
@@ -87,7 +101,10 @@ class GameServiceTest {
 
         // Then. Assert expected outcomes.
         assertThat(returnedGame.getId()).isEqualTo(game.getId());
-        assertThat(returnedGame.getName()).isEqualTo(game.getName());
+        assertThat(returnedGame.getGameDate()).isEqualTo(game.getGameDate());
+        assertThat(returnedGame.getVenue()).isEqualTo(game.getVenue());
+        assertThat(returnedGame.getOpponent()).isEqualTo(game.getOpponent());
+        assertThat(returnedGame.getIsFinalized()).isEqualTo(game.getIsFinalized());
         assertThat(returnedGame.getGameSchedule().getId()).isEqualTo(game.getGameSchedule().getId());
 
         verify(this.gameRepository, times(1)).findById(1);
@@ -96,17 +113,24 @@ class GameServiceTest {
     @Test
     void testFindAllByScheduleIdSuccess() {
         GameSchedule schedule = new GameSchedule();
-        schedule.setName("Football Schedule");
+        schedule.setSport("Football Schedule");
+        schedule.setSeason("Fall");
         schedule.setId(1);
 
         Game game1 = new Game();
         game1.setId(1);
-        game1.setName("Football");
+        game1.setGameDate("2021-10-10");
+        game1.setVenue("Amon G Carter Stadium");
+        game1.setOpponent("SMU Mustangs");
+        game1.setIsFinalized(true);
         game1.setGameSchedule(schedule);
 
         Game game2 = new Game();
         game2.setId(1);
-        game2.setName("Football");
+        game1.setGameDate("2021-10-10");
+        game1.setVenue("Amon G Carter Stadium");
+        game1.setOpponent("SMU Mustangs");
+        game1.setIsFinalized(true);
         game2.setGameSchedule(schedule);
 
         List<Game> games = new ArrayList<>();
@@ -118,7 +142,10 @@ class GameServiceTest {
         List<Game> returnedGames = this.gameService.findAllByScheduleId(1);
 
         assertThat(returnedGames.get(0).getId()).isEqualTo(games.get(0).getId());
-        assertThat(returnedGames.get(0).getName()).isEqualTo(games.get(0).getName());
+        assertThat(returnedGames.get(0).getGameDate()).isEqualTo(games.get(0).getGameDate());
+        assertThat(returnedGames.get(0).getVenue()).isEqualTo(games.get(0).getVenue());
+        assertThat(returnedGames.get(0).getOpponent()).isEqualTo(games.get(0).getOpponent());
+        assertThat(returnedGames.get(0).getIsFinalized()).isEqualTo(games.get(0).getIsFinalized());
         assertThat(returnedGames.get(0).getGameSchedule().getId()).isEqualTo(games.get(0).getGameSchedule().getId());
 
         verify(this.gameRepository, times(1)).findByGameScheduleId(1);

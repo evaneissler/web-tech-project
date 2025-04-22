@@ -17,7 +17,8 @@ public class GameSchedule {
     @JsonManagedReference
     private List<Game> games = new ArrayList<>();
 
-    private String name;
+    private String sport;
+    private String season;
 
     public GameSchedule() {}
 
@@ -25,9 +26,13 @@ public class GameSchedule {
 
     public void setId(Integer id) { this.id = id; }
 
-    public String getName() { return this.name; }
+    public String getSport() { return this.sport; }
 
-    public void setName(String name) { this.name = name; }
+    public void setSport(String sport) { this.sport = sport; }
+
+    public String getSeason() { return this.season; }
+
+    public void setSeason(String season) { this.season = season; }
 
     public List<Game> getGames() { return this.games; }
 

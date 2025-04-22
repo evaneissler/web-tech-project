@@ -22,8 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
@@ -51,21 +50,31 @@ class GameControllerTest {
     @BeforeEach
     void setUp() {
         this.gameSchedule = new GameSchedule();
-        this.gameSchedule.setName("Football Schedule");
+        this.gameSchedule.setSport("Football Schedule");
+        this.gameSchedule.setSeason("Fall");
         this.gameSchedule.setId(1);
 
         Game game1 = new Game();
-        game1.setName("Football");
+        game1.setGameDate("2021-10-10");
+        game1.setVenue("Amon G Carter Stadium");
+        game1.setOpponent("SMU Mustangs");
+        game1.setIsFinalized(true);
         game1.setId(1);
         game1.setGameSchedule(this.gameSchedule);
 
         Game game2 = new Game();
-        game2.setName("Basketball");
+        game2.setGameDate("2021-10-10");
+        game2.setVenue("Amon G Carter Stadium");
+        game2.setOpponent("SMU Mustangs");
+        game2.setIsFinalized(true);
         game2.setId(2);
         game2.setGameSchedule(this.gameSchedule);
 
         Game game3 = new Game();
-        game3.setName("Baseball");
+        game3.setGameDate("2021-10-10");
+        game3.setVenue("Amon G Carter Stadium");
+        game3.setOpponent("SMU Mustangs");
+        game3.setIsFinalized(true);
         game3.setId(3);
         game3.setGameSchedule(this.gameSchedule);
 
@@ -84,10 +93,11 @@ class GameControllerTest {
                 .andExpect(jsonPath("$.code").value(StatusCode.SUCCESS))
                 .andExpect(jsonPath("$.message").value("Find All Success"))
                 .andExpect(jsonPath("$.data", Matchers.hasSize(this.games.size())))
-                .andExpect(jsonPath("$.data[0].id").value(1))
-                .andExpect(jsonPath("$.data[0].name").value("Football"))
-                .andExpect(jsonPath("$.data[1].id").value(2))
-                .andExpect(jsonPath("$.data[1].name").value("Basketball"));
+                .andExpect(jsonPath("$.data[0].gameId").value(1))
+                .andExpect(jsonPath("$.data[0].scheduleId").value(1))
+                .andExpect(jsonPath("$.data[0].gameDate").value("2021-10-10"))
+                .andExpect(jsonPath("$.data[0].venue").value("Amon G Carter Stadium"))
+                .andExpect(jsonPath("$.data[0].opponent").value("SMU Mustangs"));
     }
 
     @Test
@@ -98,19 +108,29 @@ class GameControllerTest {
                 .andExpect(jsonPath("$.flag").value(true))
                 .andExpect(jsonPath("$.code").value(StatusCode.SUCCESS))
                 .andExpect(jsonPath("$.message").value("Find Success"))
-                .andExpect(jsonPath("$.data.id").value(1))
-                .andExpect(jsonPath("$.data.name").value("Football"));
+                .andExpect(jsonPath("$.data.gameId").value(1))
+                .andExpect(jsonPath("$.data.scheduleId").value(1))
+                .andExpect(jsonPath("$.data.gameDate").value("2021-10-10"))
+                .andExpect(jsonPath("$.data.venue").value("Amon G Carter Stadium"))
+                .andExpect(jsonPath("$.data.opponent").value("SMU Mustangs"));
     }
 
     @Test
     void testUpdateGameSuccess() throws Exception {
         Game oldGame = new Game();
-        oldGame.setName("Football Updated");
+        oldGame.setGameDate("2021-10-10");
+        oldGame.setVenue("Amon G Carter Stadium");
+        oldGame.setOpponent("SMU Mustangs");
+        oldGame.setIsFinalized(true);
         oldGame.setGameSchedule(this.gameSchedule);
         oldGame.setId(1);
 
         Game newGame = new Game();
-        newGame.setName("Football Updated");
+        newGame.setGameDate("2021-10-10");
+        newGame.setVenue("Amon G Carter Stadium");
+        newGame.setOpponent("SMU Mustangs");
+        newGame.setIsFinalized(true);
+
         newGame.setGameSchedule(this.gameSchedule);
         newGame.setId(1);
 
@@ -124,8 +144,11 @@ class GameControllerTest {
                 .andExpect(jsonPath("$.flag").value(true))
                 .andExpect(jsonPath("$.code").value(StatusCode.SUCCESS))
                 .andExpect(jsonPath("$.message").value("Update Success"))
-                .andExpect(jsonPath("$.data.id").value(1))
-                .andExpect(jsonPath("$.data.name").value("Football Updated"));
+                .andExpect(jsonPath("$.data.gameId").value(1))
+                .andExpect(jsonPath("$.data.scheduleId").value(1))
+                .andExpect(jsonPath("$.data.gameDate").value("2021-10-10"))
+                .andExpect(jsonPath("$.data.venue").value("Amon G Carter Stadium"))
+                .andExpect(jsonPath("$.data.opponent").value("SMU Mustangs"));
     }
 
     @Test
@@ -137,8 +160,11 @@ class GameControllerTest {
                 .andExpect(jsonPath("$.code").value(StatusCode.SUCCESS))
                 .andExpect(jsonPath("$.message").value("Find By Schedule Success"))
                 .andExpect(jsonPath("$.data", Matchers.hasSize(this.games.size())))
-                .andExpect(jsonPath("$.data[0].id").value(1))
-                .andExpect(jsonPath("$.data[0].name").value("Football"));
+                .andExpect(jsonPath("$.data[0].gameId").value(1))
+                .andExpect(jsonPath("$.data[0].scheduleId").value(1))
+                .andExpect(jsonPath("$.data[0].gameDate").value("2021-10-10"))
+                .andExpect(jsonPath("$.data[0].venue").value("Amon G Carter Stadium"))
+                .andExpect(jsonPath("$.data[0].opponent").value("SMU Mustangs"));
     }
 
 }

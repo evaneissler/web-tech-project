@@ -45,6 +45,10 @@ class AvailabilityServiceTest {
 
         Game game = new Game();
         game.setId(1);
+        game.setGameDate("2021-10-10");
+        game.setVenue("Amon G Carter Stadium");
+        game.setOpponent("SMU Mustangs");
+        game.setIsFinalized(true);
 
         Availability availability = new Availability();
         availability.setUser(user);
@@ -78,6 +82,10 @@ class AvailabilityServiceTest {
 
         Game game = new Game();
         game.setId(1);
+        game.setGameDate("2021-10-10");
+        game.setVenue("Amon G Carter Stadium");
+        game.setOpponent("SMU Mustangs");
+        game.setIsFinalized(true);
 
         Availability availability1 = new Availability();
         availability1.setUser(user);

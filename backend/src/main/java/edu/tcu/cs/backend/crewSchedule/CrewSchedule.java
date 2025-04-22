@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 public class CrewSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer crewedUserId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -18,6 +18,10 @@ public class CrewSchedule {
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
+
+    private String position;
+    private String reportTime = "";
+    private String reportLocation = "CONTROL ROOM";
 
     public CrewSchedule() {}
 
@@ -38,11 +42,43 @@ public class CrewSchedule {
     }
 
     public Integer getId() {
-        return id;
+        return crewedUserId;
     }
 
     public void setId(int i) {
-        this.id = i;
+        this.crewedUserId = i;
+    }
+
+    public Integer getCrewedUserId() {
+        return this.crewedUserId;
+    }
+
+    public void setCrewedUserId(Integer crewedUserId) {
+        this.crewedUserId = crewedUserId;
+    }
+
+    public String getPosition() {
+        return this.position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getReportTime() {
+        return reportTime;
+    }
+
+    public void setReportTime(String reportTime) {
+        this.reportTime = reportTime;
+    }
+
+    public String getReportLocation() {
+        return reportLocation;
+    }
+
+    public void setReportLocation(String reportLocation) {
+        this.reportLocation = reportLocation;
     }
 }
 

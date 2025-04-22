@@ -43,6 +43,7 @@ class UserServiceTest {
         user1.setEmail("john@doe.com");
         user1.setPassword("password");
         user1.setRole("USER");
+        user1.setPhoneNumber("1234567890");
 
         User user2 = new User();
         user2.setFirstName("Jane");
@@ -50,6 +51,7 @@ class UserServiceTest {
         user2.setEmail("jane@smith.com");
         user2.setPassword("password");
         user2.setRole("ADMIN");
+        user2.setPhoneNumber("1234567890");
 
         User user3 = new User();
         user3.setFirstName("Jack");
@@ -57,6 +59,7 @@ class UserServiceTest {
         user3.setEmail("jack@brown.com");
         user3.setPassword("password");
         user3.setRole("USER");
+        user3.setPhoneNumber("1234567890");
 
         this.users = new ArrayList<>();
         this.users.add(user1);
@@ -83,6 +86,7 @@ class UserServiceTest {
         newUser.setLastName("Thomas");
         newUser.setPassword("123456");
         newUser.setRole("USER");
+        newUser.setPhoneNumber("1234567890");
 
         given(this.passwordEncoder.encode(newUser.getPassword())).willReturn("123456");
 
@@ -105,6 +109,7 @@ class UserServiceTest {
         user.setLastName("Thomas");
         user.setPassword("123456");
         user.setRole("USER");
+        user.setPhoneNumber("1234567890");
 
         given(this.userRepository.findById(1)).willReturn(Optional.of(user)); // Define the behavior of the mock object.
 
@@ -130,7 +135,7 @@ class UserServiceTest {
         // Then
         assertThat(thrown)
                 .isInstanceOf(ObjectNotFoundException.class)
-                .hasMessage("Could not find user with Id 1 :(");
+                .hasMessage("Could not find user with id 1");
         verify(this.userRepository, times(1)).findById(Mockito.any(Integer.class));
     }
 
@@ -141,6 +146,7 @@ class UserServiceTest {
         user.setFirstName("Lily");
         user.setLastName("Thomas");
         user.setPassword("123456");
+        user.setPhoneNumber("1234567890");
         user.setRole("USER");
         user.addPosition("Director");
         user.addPosition("Producer");
@@ -152,6 +158,7 @@ class UserServiceTest {
         user2.setPassword("123456");
         user2.setRole("ADMIN");
         user2.addPosition("Producer");
+        user2.setPhoneNumber("1234567890");
 
         List<User> users = new ArrayList<>();
         users.add(user);

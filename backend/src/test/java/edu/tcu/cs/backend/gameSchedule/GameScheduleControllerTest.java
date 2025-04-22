@@ -4,6 +4,7 @@ package edu.tcu.cs.backend.gameSchedule;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.tcu.cs.backend.game.Game;
 import edu.tcu.cs.backend.game.GameService;
+import edu.tcu.cs.backend.gameSchedule.dto.GameScheduleDto;
 import edu.tcu.cs.backend.system.StatusCode;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -41,6 +43,9 @@ class GameScheduleControllerTest {
     @MockitoBean
     GameService gameService;
 
+    @MockitoBean
+    GameScheduleDto gameScheduleDto;
+
     List<GameSchedule> gameSchedules;
 
     @Value("/api/v1")
@@ -50,15 +55,18 @@ class GameScheduleControllerTest {
     void setUp() {
         GameSchedule schedule1 = new GameSchedule();
         schedule1.setId(1);
-        schedule1.setName("Football Schedule");
+        schedule1.setSport("Football Schedule");
+        schedule1.setSeason("Fall");
 
         GameSchedule schedule2 = new GameSchedule();
         schedule2.setId(2);
-        schedule2.setName("Basketball Schedule");
+        schedule2.setSport("Basketball Schedule");
+        schedule2.setSeason("Winter");
 
         GameSchedule schedule3 = new GameSchedule();
         schedule3.setId(3);
-        schedule3.setName("Baseball Schedule");
+        schedule3.setSport("Baseball Schedule");
+        schedule3.setSeason("Spring");
 
         this.gameSchedules = new ArrayList<>();
         this.gameSchedules.add(schedule1);
@@ -76,16 +84,20 @@ class GameScheduleControllerTest {
                 .andExpect(jsonPath("$.message").value("Find All Success"))
                 .andExpect(jsonPath("$.data", Matchers.hasSize(this.gameSchedules.size())))
                 .andExpect(jsonPath("$.data[0].id").value(1))
-                .andExpect(jsonPath("$.data[0].name").value("Football Schedule"))
+                .andExpect(jsonPath("$.data[0].sport").value("Football Schedule"))
+                .andExpect(jsonPath("$.data[0].season").value("Fall"))
                 .andExpect(jsonPath("$.data[1].id").value(2))
-                .andExpect(jsonPath("$.data[1].name").value("Basketball Schedule"));
+                .andExpect(jsonPath("$.data[1].sport").value("Basketball Schedule"))
+                .andExpect(jsonPath("$.data[1].season").value("Winter"));
+
     }
 
     @Test
     void testAddGameScheduleSuccess() throws Exception {
         GameSchedule newSchedule = new GameSchedule();
         newSchedule.setId(4);
-        newSchedule.setName("Swimming Schedule");
+        newSchedule.setSport("Swimming");
+        newSchedule.setSeason("Spring");
 
         String json = this.objectMapper.writeValueAsString(newSchedule);
 
@@ -96,7 +108,24 @@ class GameScheduleControllerTest {
                 .andExpect(jsonPath("$.code").value(StatusCode.SUCCESS))
                 .andExpect(jsonPath("$.message").value("Add Success"))
                 .andExpect(jsonPath("$.data.id").value(4))
-                .andExpect(jsonPath("$.data.name").value("Swimming Schedule"));
+                .andExpect(jsonPath("$.data.sport").value("Swimming"))
+                .andExpect(jsonPath("$.data.season").value("Spring"));
+    }
+
+
+    @Test
+    void testAddGameValidationError() throws Exception {
+
+        String json = "{}";
+
+        this.mockMvc.perform(post(this.baseUrl + "/gameSchedule/1/games").contentType(MediaType.APPLICATION_JSON).content(json).accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.flag").value(false))
+                .andExpect(jsonPath("$.code").value(StatusCode.INVALID_ARGUMENT))
+                .andExpect(jsonPath("$.message").value("Provided arguments are invalid, see data for details."))
+                .andExpect(jsonPath("$.data.gameDate").value("Game date is required"))
+                .andExpect(jsonPath("$.data.venue").value("Venue is required"))
+                .andExpect(jsonPath("$.data.opponent").value("Opponent is required"))
+                .andExpect(jsonPath("$.data.isFinalized").value("Is finalized is required"));
     }
 
 }

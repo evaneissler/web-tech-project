@@ -3,6 +3,8 @@ package edu.tcu.cs.backend.user;
 import edu.tcu.cs.backend.availability.Availability;
 import edu.tcu.cs.backend.system.StringListConverter;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -17,14 +19,26 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @NotNull(message = "First name is required")
     private String firstName;
+
+    @NotNull(message = "Last name is required")
     private String lastName;
+
+    @NotNull(message = "Email is required")
     private String email;
+
+    @NotNull(message = "Phone number is required")
     private String phoneNumber;
+
     private String password;
+
+    @NotNull(message = "Role is required")
     private String role;
 
     @Convert(converter = StringListConverter.class)
+    @NotNull(message = "Positions is required")
+    @Size(min = 1, message = "Positions is required")
     private List<String> positions = new ArrayList<>();
 
     private Boolean enabled = true;
@@ -64,7 +78,7 @@ public class User implements Serializable {
 
     public String getPhoneNumber() {  return phoneNumber;  }
 
-    public void setPhoneNumber(String phoneNumber) {}
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
     public String getPassword() { return password; }
 
