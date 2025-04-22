@@ -19,6 +19,9 @@ public class Availability {
     @JoinColumn(name = "game_id")
     private Game game;
 
+    private Integer availability;
+    private String comment;
+
     public Availability() {}
 
     public User getUser() {
@@ -43,5 +46,21 @@ public class Availability {
 
     public void setId(int i) {
         this.id = i;
+    }
+
+    public Integer getAvailability() {
+        return this.availability;
+    }
+
+    public void setAvailability(Integer availability) {
+        this.availability = availability;
+    }
+
+    public String getComment() {
+        return this.comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

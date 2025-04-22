@@ -50,7 +50,10 @@ class AvailabilityControllerTest {
     void setUp() {
         Game game = new Game();
         game.setId(1);
-        game.setName("Game 1");
+        game.setGameDate("2021-10-10");
+        game.setVenue("Amon G Carter Stadium");
+        game.setOpponent("SMU Mustangs");
+        game.setIsFinalized(true);
 
         User user = new User();
         user.setId(1);
@@ -69,7 +72,10 @@ class AvailabilityControllerTest {
     void testAddAvailabilitySuccess() throws Exception {
         Game game = new Game();
         game.setId(1);
-        game.setName("Game 1");
+        game.setGameDate("2021-10-10");
+        game.setVenue("Amon G Carter Stadium");
+        game.setOpponent("SMU Mustangs");
+        game.setIsFinalized(true);
 
         User user = new User();
         user.setId(1);
@@ -80,7 +86,7 @@ class AvailabilityControllerTest {
         availability.setGame(game);
         availability.setUser(user);
 
-        String json = this.objectMapper.writeValueAsString(availability);
+        String json = "{ \"userId\": 1, \"gameId\": 1, \"availability\": 1, \"comment\": \"Will be coming from another game\" }";
 
         given(this.availabilityService.save(Mockito.any(Availability.class))).willReturn(availability);
 
@@ -88,8 +94,22 @@ class AvailabilityControllerTest {
                 .andExpect(jsonPath("$.flag").value(true))
                 .andExpect(jsonPath("$.code").value(StatusCode.SUCCESS))
                 .andExpect(jsonPath("$.message").value("Add Success"))
-                .andExpect(jsonPath("$.data.user.firstName").value("John"))
-                .andExpect(jsonPath("$.data.game.name").value("Game 1"));
+                .andExpect(jsonPath("$.data.userId").value("1"))
+                .andExpect(jsonPath("$.data.gameId").value("1"));
+    }
+
+    @Test
+    void testAddAvailabilityValidationError() throws Exception {
+
+        String json = "{}";
+
+        this.mockMvc.perform(post(this.baseUrl).contentType(MediaType.APPLICATION_JSON).content(json).accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.flag").value(false))
+                .andExpect(jsonPath("$.code").value(StatusCode.INVALID_ARGUMENT))
+                .andExpect(jsonPath("$.message").value("Provided arguments are invalid, see data for details."))
+                .andExpect(jsonPath("$.data.userId").value("User id is required"))
+                .andExpect(jsonPath("$.data.gameId").value("Game id is required"))
+                .andExpect(jsonPath("$.data.availability").value("Availability is required"));
     }
 
     @Test
@@ -98,7 +118,10 @@ class AvailabilityControllerTest {
 
         Game game = new Game();
         game.setId(1);
-        game.setName("Game 1");
+        game.setGameDate("2021-10-10");
+        game.setVenue("Amon G Carter Stadium");
+        game.setOpponent("SMU Mustangs");
+        game.setIsFinalized(true);
 
         User user = new User();
         user.setId(1);
@@ -117,8 +140,8 @@ class AvailabilityControllerTest {
                 .andExpect(jsonPath("$.flag").value(true))
                 .andExpect(jsonPath("$.code").value(StatusCode.SUCCESS))
                 .andExpect(jsonPath("$.message").value("Find By Game Success"))
-                .andExpect(jsonPath("$.data[0].user.firstName").value("John"))
-                .andExpect(jsonPath("$.data[0].game.name").value("Game 1"));
+                .andExpect(jsonPath("$.data[0].userId").value("1"))
+                .andExpect(jsonPath("$.data[0].gameId").value("1"));
     }
 
 }

@@ -33,13 +33,16 @@ class GameScheduleServiceTest {
     @BeforeEach
     void setUp() {
         GameSchedule schedule1 = new GameSchedule();
-        schedule1.setName("Football Schedule");
+        schedule1.setSport("Football Schedule");
+        schedule1.setSeason("Fall");
 
         GameSchedule schedule2 = new GameSchedule();
-        schedule2.setName("Basketball Schedule");
+        schedule2.setSport("Basketball Schedule");
+        schedule1.setSeason("Spring");
 
         GameSchedule schedule3 = new GameSchedule();
-        schedule3.setName("Baseball Schedule");
+        schedule3.setSport("Baseball Schedule");
+        schedule1.setSeason("Spring");
 
         this.gameSchedules = new ArrayList<>();
         this.gameSchedules.add(schedule1);
@@ -61,27 +64,31 @@ class GameScheduleServiceTest {
     @Test
     void testAddGameScheduleSuccess() {
         GameSchedule newSchedule = new GameSchedule();
-        newSchedule.setName("Swimming Schedule");
+        newSchedule.setSport("Swimming Schedule");
+        newSchedule.setSeason("Spring");
 
         given(this.gameScheduleRepository.save(newSchedule)).willReturn(newSchedule);
 
         GameSchedule returnedSchedule = this.gameScheduleService.save(newSchedule);
 
-        assertThat(returnedSchedule.getName()).isEqualTo(newSchedule.getName());
+        assertThat(returnedSchedule.getSport()).isEqualTo(newSchedule.getSport());
+        assertThat(returnedSchedule.getSeason()).isEqualTo(newSchedule.getSeason());
         verify(this.gameScheduleRepository, times(1)).save(newSchedule);
     }
 
     @Test
     void testFindGameScheduleByIdSuccess() {
         GameSchedule schedule = new GameSchedule();
-        schedule.setName("Wrestling Schedule");
+        schedule.setSport("Wrestling Schedule");
+        schedule.setSeason("Winter");
 
         given(this.gameScheduleRepository.findById(1)).willReturn(Optional.of(schedule));
 
         GameSchedule returnedSchedule = this.gameScheduleService.findById(1);
 
         assertThat(returnedSchedule.getId()).isEqualTo(schedule.getId());
-        assertThat(returnedSchedule.getName()).isEqualTo(schedule.getName());
+        assertThat(returnedSchedule.getSport()).isEqualTo(schedule.getSport());
+        assertThat(returnedSchedule.getSeason()).isEqualTo(schedule.getSeason());
         verify(this.gameScheduleRepository, times(1)).findById(1);
     }
 }
