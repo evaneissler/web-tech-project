@@ -7,6 +7,7 @@ import edu.tcu.cs.backend.game.GameService;
 import edu.tcu.cs.backend.gameSchedule.GameSchedule;
 import edu.tcu.cs.backend.gameSchedule.GameScheduleService;
 import edu.tcu.cs.backend.system.StatusCode;
+import edu.tcu.cs.backend.system.exception.ObjectNotFoundException;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -113,6 +114,17 @@ class GameControllerTest {
                 .andExpect(jsonPath("$.data.gameDate").value("2021-10-10"))
                 .andExpect(jsonPath("$.data.venue").value("Amon G Carter Stadium"))
                 .andExpect(jsonPath("$.data.opponent").value("SMU Mustangs"));
+    }
+
+    @Test
+    void testFindGameByIdNotFound() throws Exception {
+        given(this.gameService.findById(1)).willThrow(new ObjectNotFoundException("game", 1));
+
+        this.mockMvc.perform(get(this.baseUrl + "/game/1").accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.flag").value(false))
+                .andExpect(jsonPath("$.code").value(StatusCode.NOT_FOUND))
+                .andExpect(jsonPath("$.message").value("Could not find game with id 1"))
+                .andExpect(jsonPath("$.data").doesNotExist());
     }
 
     @Test
