@@ -1,26 +1,59 @@
 const BASE_URL = "http://localhost:8080/api/v1";
 
+function tokenProcess() {
+    return localStorage.getItem("token");
+}
+
+
+const headerPost = {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${tokenProcess()}`
+    }
+}
+
+const headerPut = {
+    method: "PUT",
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${tokenProcess()}`
+    }
+}
+
+const headerDelete = {
+    method: "DELETE",
+    headers: {
+        "Authorization": `Bearer ${tokenProcess()}`
+    }
+}
+
+const headerGet = {
+    headers: {
+        "Authorization": `Bearer ${tokenProcess()}`
+    }
+}
+
+
 /**
  *
  * @param {String} username
  * @param {*} password
  * @returns
  */
+
+const headers = new Headers();
 const login = async (username, password) => {
+    headers.set("Authorization", `Basic ${btoa(username + ":" + password)}`);
+
     try {
         const res = await fetch(BASE_URL + "/login", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "username": username,
-                "password": password
-            }
+            headers: headers
         });
         if (!res.ok) {
             throw new Error(`Error: ${res.status}`)
         }
-
-        console.log(res.json());
         return res.json();
     } catch (error) {
         console.log(error);
@@ -40,7 +73,7 @@ const login = async (username, password) => {
  * * */
 const gameSchedule = async () => {
     try {
-        const res = await fetch(BASE_URL + "/gameSchedule");
+        const res = await fetch(BASE_URL + "/gameSchedule", headerGet);
         if (!res.ok) {
             throw new Error(`Error: ${res.status}`)
         }
@@ -58,7 +91,7 @@ const gameSchedule = async () => {
  */
 const gameScheduleById = async (id) => {
     try {
-        const res = await fetch(BASE_URL + `/gameSchedule/${id}`);
+        const res = await fetch(BASE_URL + `/gameSchedule/${id}`, headerGet);
         if (!res.ok) {
             throw new Error(`Error: ${res.status}`)
         }
@@ -78,13 +111,11 @@ const gameScheduleById = async (id) => {
  */
 const addGameSchedule = async (schedule) => {
     try {
-        const res = await fetch(BASE_URL + "/gameSchedule", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(schedule),
-        })
+        const res = await fetch(BASE_URL + "/gameSchedule",
+            headerPost,
+            headerPost[body](Json.Stringify(schedule))
+        )
+
         if (!res.ok) {
             throw new Error(`Error: ${res.status}`)
         }
@@ -103,13 +134,12 @@ const addGameSchedule = async (schedule) => {
  */
 const editGameSchedule = async (schedule) => {
     try {
-        const res = await fetch(BASE_URL + "/gameSchedule", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(schedule),
-        })
+        const res = await fetch(BASE_URL + "/gameSchedule",
+            headerPut,
+            headerPut[body](Json.Stringify(schedule))
+            // if it does not work, put:
+            // change back to origin.
+        )
         if (!res.ok) {
             throw new Error(`Error: ${res.status}`)
         }
@@ -129,9 +159,9 @@ const editGameSchedule = async (schedule) => {
  */
 const deleteGameSchedule = async (id) => {
     try {
-        const res = await fetch(BASE_URL + `/gameSchedule/${id}`, {
-            method: "DELETE",
-        })
+        const res = await fetch(BASE_URL + `/gameSchedule/${id}`,
+            headerDelete
+        )
         if (!res.ok) {
             throw new Error(`Error: ${res.status}`)
         }
@@ -154,7 +184,7 @@ const deleteGameSchedule = async (id) => {
 const findAllGames = async (scheduleId) => {
     try {
         const url = BASE_URL + `/gameSchedule/${scheduleId}/games`;
-        const res = await fetch(url);
+        const res = await fetch(url, headerGet);
         if (!res.ok) {
             throw new Error(`Error: ${res.status}`)
         }
@@ -174,7 +204,7 @@ const findAllGames = async (scheduleId) => {
 const findGameById = async (scheduleId, gameId) => {
     try {
         const url = BASE_URL + `/gameSchedule/${scheduleId}/games/${gameId}`;
-        const res = await fetch(url);
+        const res = await fetch(url, headerGet);
         if (!res.ok) {
             throw new Error(`Error: ${res.status}`)
         }
@@ -195,13 +225,10 @@ const findGameById = async (scheduleId, gameId) => {
 const addNewGame = async (scheduleId, game) => {
     try {
         const url = BASE_URL + `/gameSchedule/${scheduleId}/games`;
-        const res = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(game),
-        })
+        const res = await fetch(url,
+            headerPost,
+            headerPost[body](Json.Stringify(game))
+        )
         if (!res.ok) {
             throw new Error(`Error: ${res.status}`)
         }
@@ -223,13 +250,7 @@ const addNewGame = async (scheduleId, game) => {
 const editGame = async (scheduleId, game) => {
     try {
         const url = BASE_URL + `/gameSchedule/${scheduleId}/games/${game.id}`;
-        const res = await fetch(url, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(game),
-        })
+        const res = await fetch(url, headerPut, headerPut[body](Json.Stringify(game)));
         if (!res.ok) {
             throw new Error(`Error: ${res.status}`)
         }

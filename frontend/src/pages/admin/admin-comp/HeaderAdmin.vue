@@ -27,7 +27,11 @@
 <style  scoped>
     .logo{
         display: flex;
-        /* background: red; */
+        background: purple;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        padding: 1rem;
     }
 
     .logo *{
@@ -35,11 +39,10 @@
     }
 
     .nav{
-        /* background: green; */
+        /* background: green;s */
         display: flex;
         justify-content: space-evenly;
         width: calc(100vw - 2vw);
-        padding: 10px;
         align-items: center;
     }
 
@@ -48,10 +51,16 @@
         display: flex;
         gap: 10%;
         justify-content: center;
+        align-items: center;
     }
 
     .sub-links > *, .profile > *{
         text-decoration: none;
+        /* background-color: red; */
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 1rem;
     }
 
     .home-admin{

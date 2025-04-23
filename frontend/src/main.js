@@ -3,7 +3,7 @@ import './assets/main.css';
 import { createApp } from 'vue';
 import adminapi from './api/adminapi';
 import App from './App.vue';
-import router from './routes';
+import router from './routes/routes';
 
 
 const app = createApp(App);
@@ -11,7 +11,7 @@ const app = createApp(App);
 // login globally
 async function login() {
     const res = await adminapi.login("jane@smith.com", "password");
-    console.log(res);
+    localStorage.setItem("token", res.data.token);
 }
 
 login();
