@@ -23,7 +23,7 @@ const loading = ref(true);
 const loadAllGameSchedule = async () => {
     try {
         gameSchedules.value = await crewapi.viewGeneralSchedule();
-        console.log(gameSchedule.value);
+        console.log(gameSchedules.value);
     } catch (err) {
         console.log(err);
     } finally {

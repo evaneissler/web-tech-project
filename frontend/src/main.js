@@ -11,7 +11,7 @@ const app = createApp(App);
 // login globally
 async function login() {
     const res = await adminapi.login("jane@smith.com", "password");
-    console.log(res);
+    localStorage.setItem("token", res.data.token);
 }
 
 login();
