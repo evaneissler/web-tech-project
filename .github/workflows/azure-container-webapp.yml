@@ -26,7 +26,7 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
       - name: Build with Maven
-        run: mvn -f backend/web-tech-project/pom.xml --batch-mode --update-snapshots package -DskipTests
+        run: mvn -f web-tech-project/backend/pom.xml --batch-mode --update-snapshots package -DskipTests
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Log in to GitHub container registry
@@ -43,7 +43,7 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}
-          file: backend/web-tech-project/Dockerfile
+          file: web-tech-project/backend/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
