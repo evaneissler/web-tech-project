@@ -27,7 +27,6 @@
 <style  scoped>
     .logo{
         display: flex;
-        background: purple;
         align-items: center;
         text-align: center;
         justify-content: center;
