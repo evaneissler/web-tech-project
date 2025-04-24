@@ -94,6 +94,7 @@ const loadAllGames = async () =>{
         // const scheduleTitleRes = await adminapi.findAllGames(scheduleId);
         // scheduleTitle.value = scheduleTitleRes;
         availableGames.value = availableGamesRes.data;
+        console.log(availableGames.value);
     } catch(err){
         console.log(err);
     } finally {

@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:8080/api/v1";
+// const BASE_URL = "http://localhost:8080/api/v1";
+const BASE_URL = "https://web-tech-project.azurewebsites.net/api/v1";
 
 function tokenProcess() {
     return localStorage.getItem("token");
@@ -354,6 +355,8 @@ const findCrewById = async (id) => {
         throw error;
     }
 }
+
+
 
 export default {
     login,

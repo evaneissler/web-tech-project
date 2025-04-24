@@ -30,7 +30,8 @@ const loading = ref(true);
 
 const loadAllCrew = async () => {
     try {
-        allCrew.value = await adminapi.findAllCrew();
+        const allCrewRes = await adminapi.findAllCrew();
+        allCrew.value = allCrewRes.data;
         console.log(allCrew.value);
     } catch (err) {
         console.log(err);
