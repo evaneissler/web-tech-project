@@ -1,66 +1,93 @@
 <template>
-<div class="schedule-container">
-    <!-- ********************************** -->
-    <!-- Sub headd -->
-    <!-- ********************************** -->
-    <div class="subhead-schedule">
-        <h1>Schedule Tab</h1>
-        <ButtonC @custom-event="HideForm = !HideForm">{{ HideForm ? "Add" : "Close" }}</ButtonC>
-    </div>
+    <div class="schedule-container">
+        <!-- ********************************** -->
+        <!-- Sub headd -->
+        <!-- ********************************** -->
+        <div class="subhead-schedule">
+            <h1>Schedule Tab</h1>
+            <ButtonC @custom-event="HideForm = !HideForm">{{ HideForm ? "Add" : "Close" }}</ButtonC>
+        </div>
 
 
 
-    <!-- ********************************** -->
-    <!-- Adding a new schedule -->
-    <!-- ********************************** -->
-    
-    <div class="add-schedule" :class="{'isActive':HideForm}">
-        <h1>New Schedule</h1>
-        
-        <form @submit.prevent="submitNewSchedule">
-            <input required v-model="sportName" type="text" placeholder="Sport">
-            <input required v-model="seasonName" type="text" placeholder="Season">
-            <div class="btns">
-                <ButtonC>Save</ButtonC>
-            </div>
-        </form>
-    </div>
+        <!-- ********************************** -->
+        <!-- Adding a new schedule -->
+        <!-- ********************************** -->
 
-    <!-- ********************************** -->
-    <!-- Showing error message -->
-    <!-- ********************************** -->
+        <div class="add-schedule" :class="{ 'isActive': HideForm }">
+            <h1>New Schedule</h1>
 
-    <div v-if="postResponse != ''">
-        <h1>{{ postResponse }}</h1>
-    </div>
+            <form @submit.prevent="submitNewSchedule">
+                <input required v-model="sportName" type="text" placeholder="Sport">
+                <input required v-model="seasonName" type="text" placeholder="Season">
+                <div class="btns">
+                    <ButtonC>Save</ButtonC>
+                </div>
+            </form>
+        </div>
+
+        <!-- ********************************** -->
+        <!-- Showing error message -->
+        <!-- ********************************** -->
+
+        <!-- <div v-if="postResponse != ''">
+            <h1>{{ postResponse }}</h1>
+        </div> -->
 
 
-    <!-- ********************************** -->
-    <!-- Showing available schedules -->
-    <!-- ********************************** -->
-    
-    <div class="schedules-list">
-        <div class="game-schedule" v-for="(item) in schedules" v-bind:key="item.id">
+        <!-- ********************************** -->
+        <!-- Showing available schedules -->
+        <!-- ********************************** -->
 
-            <!-- <span>{{item.id}}</span>
-            <span>{{item.sport}}</span>
-            <span>{{item.season}}</span> -->
+        <div class="schedules-list" v-if="schedules.length > 0">
+            <table class="schedule-table">
+                <tr class="schedule-header">
+                    <th>Schedule ID</th>
+                    <th>Sport</th>
+                    <th>Season</th>
+                    <th>Games</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                <tr class="game-schedule" v-for="(item) in schedules" :key="item.id" @click="goToSchedule(item.id)">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.sport }}</td>
+                    <td>{{ item.season }}</td>
+                    <td>{{ item.games.length }}</td>
+                    <td>
+                        <ButtonC>Edit</ButtonC>
+                    </td>
+                    <td>
+                        <ButtonC>Delete</ButtonC>
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-            <router-link class="schedule-detail" :to="{ name: 'Schedule', params: { id: item.id }}">
-                <span>{{item.id}}</span>
-                <span>{{item.name }}</span>
-                <span> {{ item.games.length }} Game(s) </span>
-            </router-link>
+        <div v-else class="no-schedules">
+            <h1>No schedules yet</h1>
         </div>
 
     </div>
-</div>
 </template>
 
 <script setup>
 import adminapi from '@/api/adminapi';
 import ButtonC from '@/components/ButtonC.vue';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+// ****************************************
+// GOING TO SCHEDULE
+// ****************************************
+const router = useRouter();
+
+const goToSchedule = (id) => {
+    router.push({ name: "Schedule-admin", params: { id: id } });
+}
+
+
+
 // true or false? show or hide
 let HideForm = ref(true);
 
@@ -72,7 +99,10 @@ const sportName = ref("");
 const seasonName = ref("");
 let postResponse = ref("");
 
-const submitNewSchedule = async () =>{
+let schedules = ref([]);
+const loading = ref(true);
+
+const submitNewSchedule = async () => {
     postResponse.value = "";
     // sports and seasons body
     const newSchedule = {
@@ -80,20 +110,23 @@ const submitNewSchedule = async () =>{
         season: seasonName.value,
     }
 
-    try{
+    try {
         postResponse.value = adminapi.addGameSchedule(newSchedule) || "Schedule added successfully"
 
         schedules.value.push({
-            name: newSchedule.sport,
+            sport: newSchedule.sport,
+            season: newSchedule.season,
             games: [],
         });
 
         // clear the form
         sportName.value = "";
         seasonName.value = "";
-        HideForm.value = true;
-    }catch(err){
-            postResponse.value = err;
+    } catch (err) {
+        postResponse.value = err;
+    } finally{
+        loading.value = false;
+        HideForm.value = !HideForm.value;
     }
 }
 
@@ -103,14 +136,12 @@ const submitNewSchedule = async () =>{
 // ****************************************
 // Fetching all schedules and showing them
 // ****************************************
-let schedules = ref([]);
-const loading = ref(true);
+const loadAllSchedules = async () => {
+    try {
 
-const loadAllSchedules = async () =>{
-    try{
-        schedules.value = await adminapi.gameSchedule();
-        console.log(schedules.value);
-    }catch(err){
+        const schedulesRes = await adminapi.gameSchedule();
+        schedules.value = schedulesRes.data;
+    } catch (err) {
         console.log(err);
     } finally {
         loading.value = false;
@@ -121,80 +152,74 @@ loadAllSchedules();
 </script>
 
 
+<style scoped>
+.no-schedules {
+    margin-top: 3rem;
+}
+
+.schedules-list {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 
+.game-schedule,
+.schedule-header {
+    text-align: center;
+}
 
+.game-schedule>*,
+.schedule-header>* {
+    padding: 1rem;
+}
 
+.game-schedule:hover {
+    background: rgb(230, 230, 230);
+    cursor: pointer;
+}
 
+/* ADDING A NEW SCHEDULE */
 
-<style  scoped>
+.isActive {
+    display: none;
+}
 
-    .schedules-list{
-        background: rgb(245, 245, 245);
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top:2rem;
-    }
+.add-schedule {
+    flex-direction: column;
+    border: 1px solid lightgray;
+    width: fit-content;
+    text-align: center;
+    padding: 10px;
+}
 
-    .game-schedule{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px;
-        width: 50%;
-    }
+.add-schedule>form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
 
-    .game-schedule:hover{
-        background: rgb(230, 230, 230);
-    }
+.add-schedule>form>* {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 4px;
+}
 
-    .isActive{
-        display: none;
-    }
+.schedule-container {
+    /* background: lightgray */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
-    .add-schedule{
-        flex-direction: column;
-        border: 1px solid lightgray;
-        width: fit-content;
-        text-align: center;
-        padding: 10px;
-    }
-
-    .add-schedule > form {
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .add-schedule > form > *{
-        padding: 5px;
-        margin: 5px;
-        border-radius: 4px;
-    }
-
-    .schedule-container{
-        /* background: lightgray */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .subhead-schedule{
-        display: flex;
-        width: 100%;
-        justify-content: space-around;
-        background: rgb(240, 240, 240);
-        align-items: center;
-    }
-
-    .schedule-detail{
-        text-decoration: none;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+.subhead-schedule {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    background: rgb(240, 240, 240);
+    align-items: center;
+}
 </style>

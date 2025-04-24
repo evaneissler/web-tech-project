@@ -112,8 +112,10 @@ const gameScheduleById = async (id) => {
 const addGameSchedule = async (schedule) => {
     try {
         const res = await fetch(BASE_URL + "/gameSchedule",
-            headerPost,
-            headerPost[body](Json.Stringify(schedule))
+            {
+                ...headerPost,
+                body: JSON.stringify(schedule)
+            }
         )
 
         if (!res.ok) {
@@ -226,8 +228,10 @@ const addNewGame = async (scheduleId, game) => {
     try {
         const url = BASE_URL + `/gameSchedule/${scheduleId}/games`;
         const res = await fetch(url,
-            headerPost,
-            headerPost[body](Json.Stringify(game))
+            {
+                ...headerPost,
+                body: JSON.stringify(game)
+            }
         )
         if (!res.ok) {
             throw new Error(`Error: ${res.status}`)
