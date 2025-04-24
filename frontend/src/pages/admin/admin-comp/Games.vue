@@ -4,7 +4,7 @@
     <!-- ********************************** -->
     <div class="games-container">
         <div class="sub-head">
-            <h1>{{ scheduleTitle ? scheduleTitle : "Could not find schedule" }}</h1>
+            <h1> Games in schedule {{ scheduleId }}</h1>
             <ButtonC @custom-event="HideForm = !HideForm"> {{ HideForm ? "Add" : "Close" }}</ButtonC>
         </div>
 
@@ -21,50 +21,42 @@
             <input required v-model="gameopponent" type="text" placeholder="Opponent">
 
             <label for="isFinalized">Is the game finalized?</label>
-            <select required name="" id="">
-                <option value="true">True</option>
+            <select  required name="" id="" v-model="gamefinalized">
+                <option value="true" selected>True</option>
                 <option value="false">False</option>
             </select>
 
-            <ButtonC>Save</ButtonC>
+            <ButtonC >Save</ButtonC>
         </form>
     </div>
 
     <!-- ********************************** -->
     <!-- Showing available games -->
     <!-- ********************************** -->
-    <div class="game-list">
-        <div class="game-item" v-for="game in availableGames" v-bind:key="game.id">
-
-
-            <!-- ********************************** -->
-            <!-- ******** SHOW GAME DETAILS ******** -->
-             <!-- ******* Uncomment when the backend is ready ******** -->
-            <!-- ********************************** -->
-
-            <!-- <router-link class="game-detail" :to="{ name: 'Game', params: { id: game.gameId }}">
-                <span>{{game.gameId}}</span>
-                <span>{{game.gameDate}}</span>
-                <span>{{game.venue}}</span>
-                <span>{{game.opponent}}</span>
-                <span>{{game.isFinalized}}</span>
-                <span> <ButtonC>Delete</ButtonC></span>
-
-            </router-link> -->
-
-
-            <!-- ********************************** -->
-            <!-- ******** Delete after backend is ready ******** -->
-             <!-- ********************************** -->
-            <!-- <router-link class="game-detail" :to="{ name: 'Game', params: { id: game.id}}"> -->
-                <span>{{game.id}}</span>
-                <span>{{game.name}}</span>
-                <span>{{game.venue}}</span>
-                <span> <ButtonC @custom-event="deleteGame(game.id)">Delete</ButtonC></span>
-            <!-- </router-link> -->
-
-
-        </div>
+    <div class="game-list" v-if="availableGames.length > 0">
+            <table class="game-table">
+                <tr>
+                    <th>Game ID</th>
+                    <th>Game Date</th>
+                    <th>Venue</th>
+                    <th>Opponent</th>
+                    <th>Is Finalized</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                <tr class="game-item"  v-for="game in availableGames" :key="game.gameId">
+                    <td>{{game.gameId}}</td>
+                    <td>{{game.gameDate}}</td>
+                    <td>{{game.venue}}</td>
+                    <td>{{game.opponent}}</td>
+                    <td>{{game.isFinalized}}</td>
+                    <td><ButtonC>Edit</ButtonC></td>
+                    <td><ButtonC>Delete</ButtonC></td>
+                </tr>
+            </table>
+    </div>
+    <div v-else class="no-games">
+        <h1>No games yet</h1>
     </div>
 
 </div>
@@ -75,11 +67,18 @@ import adminapi from '@/api/adminapi';
 import ButtonC from '@/components/ButtonC.vue';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
+let HideForm = ref(true);
+const loading = ref(true);
+
+// ****************************************
+// After submitting a new game, we need to hide the form
+// ****************************************
+
 
 // ****************************************
 // Fetching Games under schedules and showing them
 // ****************************************
-let HideForm = ref(true);
+
 
 const route = useRoute();
 const scheduleId = route.params.id;
@@ -91,8 +90,10 @@ const scheduleTitle = ref("");
 // ****************************************
 const loadAllGames = async () =>{
     try{
-        availableGames.value = await adminapi.findAllGames(scheduleId);
-        console.log(availableGames.value);
+        const availableGamesRes = await adminapi.findAllGames(scheduleId);
+        // const scheduleTitleRes = await adminapi.findAllGames(scheduleId);
+        // scheduleTitle.value = scheduleTitleRes;
+        availableGames.value = availableGamesRes.data;
     } catch(err){
         console.log(err);
     } finally {
@@ -126,8 +127,11 @@ const submitNewGame = async () =>{
         postResponse.value = adminapi.addNewGame(scheduleId, newGame) || "Game added successfully"
 
         availableGames.value.push({
-            name: newGame.gameDate,
-            gameId: data.data.id,
+            gameId:null,
+            gameDate: newGame.gameDate,
+            venue: newGame.venue,
+            opponent: newGame.opponent,
+            isFinalized: newGame.isFinalized
         });
 
         // clear the form
@@ -135,10 +139,10 @@ const submitNewGame = async () =>{
         gameopponent.value = "";
         gamefinalized.value = "";
         gamedate.value = "";
-        HideForm.value = true;
-    
     }catch(err){
         postResponse.value = err;
+    } finally {
+        HideForm.value = !HideForm.value;
     }
 }
 
@@ -146,7 +150,6 @@ const submitNewGame = async () =>{
 // Deleting a game || NOT implemented
 // ****************************************
 // const deleteGame = async (id) =>{
-//     const deleteUrl = `http://localhost:8080/api/v1/gameSchedule/${scheduleId}/games/${id}`;
 
 //     try{
 //         // submitting the new game
@@ -171,6 +174,15 @@ const submitNewGame = async () =>{
 </script>
 
 <style  scoped>
+
+    .no-games{
+        margin-top:3rem;
+    }
+
+    a{
+        text-decoration: none;
+    }
+
     .games-container{
         display: flex;
         flex-direction: column;
@@ -184,6 +196,11 @@ const submitNewGame = async () =>{
         padding: 10px;
         border: 1px solid lightgray;
         margin-top:2rem;
+        /* background: red; */
+        margin-bottom: 2rem;
+        transition: all 0.3s ease-in-out;
+    transform: scaleY(1);
+    opacity: 1;
     }
 
     .add-game > form{
@@ -193,6 +210,11 @@ const submitNewGame = async () =>{
         justify-content: center;
         border-radius: 20px;
     }
+
+    .add-game.active {
+    transform: scaleY(0);
+    opacity: 0;
+}
 
     .add-game > form > *{
         padding: 5px;
@@ -213,22 +235,26 @@ const submitNewGame = async () =>{
     }
 
     .game-list{
+        /* background: red; */
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-top:2rem;
     }
 
     .game-item{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px;
-        width: 50%;
-        flex-direction: row;
+        text-align: center;
+    }
+
+    .game-item > *{
+        padding: 1rem;
     }
 
     .game-item:hover{
         background: rgb(230, 230, 230);
+        cursor: pointer;
     }
+
+
 </style>

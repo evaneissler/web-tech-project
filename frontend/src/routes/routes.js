@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/pages/HomeView.vue";
 
 import AdminPanel from "@/pages/admin/AdminPanel.vue";
+import AdminWelcome from "@/pages/admin/admin-comp/AdminWelcome.vue";
 import CrewAvailable from "@/pages/crew/crew-comp/CrewAvailable.vue";
 import CrewGameSchedule from "@/pages/crew/crew-comp/CrewGameSchedule.vue";
 import CrewProfile from "@/pages/crew/crew-comp/CrewProfile.vue";
@@ -27,8 +28,9 @@ const routes = [
         name: "Admin Main Panel",
         component: AdminPanel,
         children:[
+            {path: "", name: "Admin Welcome Page", component: AdminWelcome},
             {path: "schedules", name:"Schedules", component: GameSchedule, props: true},
-            {path:"schedules/:id/games", name:"Schedule", component: Games, props: true},
+            {path:"schedules/:id/games", name:"Schedule-admin", component: Games, props: true},
             {path:"crew", name:"crews", component: CrewProfiles},
             {path:"invite", name:"invite", component: Invite},
             {path:"profile", name:"profile"}
