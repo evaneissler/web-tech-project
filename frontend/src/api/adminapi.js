@@ -299,10 +299,7 @@ const invite = async (emails) => {
     try {
         const url = BASE_URL + "/invite";
         const res = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            ...headerPost,
             body: JSON.stringify(emails),
         })
         if (!res.ok) {
@@ -324,7 +321,7 @@ const invite = async (emails) => {
 const findAllCrew = async () => {
     try {
         const url = BASE_URL + "/crewMember";
-        const res = await fetch(url);
+        const res = await fetch(url, headerGet);
         if (!res.ok) {
             throw new Error(`Error: ${res.status}`)
         }

@@ -1,6 +1,7 @@
 <template>
     <div class="welcome-container">
         <h1>Welcome to the Admin Panel</h1>
+        <br>
         <p>Here you can manage your game schedules, invite your crew, and more!</p>
         <div class="functions">
             <router-link class="function" :to="{ name: 'Schedules' }">Manage Game Schedules</router-link>
@@ -22,6 +23,7 @@
         align-items: center;
         width: 100%;
         height: 100%;
+        margin-top:5rem;
     }
 
 

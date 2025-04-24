@@ -33,7 +33,6 @@
 
     .logo{
         display: flex;
-        background: green;
         height: 100%;
     }
 
