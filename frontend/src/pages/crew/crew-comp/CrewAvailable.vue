@@ -21,10 +21,10 @@
                 <label for="userId"> User ID</label>
                 <p>{{ userID }}</p>
 
-                <label for="availability">Availability</label>
+                <label for="availability">Are you aveilable to work?</label>
                 <select name="availability" id="availability" v-model="availability" required>
-                    <option value="true" selected>True</option>
-                    <option value="false">False</option>
+                    <option value="true" selected>Yes</option>
+                    <option value="false">No</option>
                 </select>
 
                 <label for="comment">Comment</label>

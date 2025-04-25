@@ -1,20 +1,24 @@
 <template>
     <div class="welcome-container">
         <div class="welcome-crew">
-            <h1>Welcome {{ crewname }},</h1>
+            <h1>Welcome back, {{ crewname }}!</h1>
             <p>Click on on desired link to see the content of that page.</p>
             <br>
-            <p>To submit availability, click on genera schedules or schedule</p>
+            <!-- <p>To submit availability, click on genera schedules or schedule</p> -->
         </div>
         <div class="operations">
             <router-link to="/crew/schedule">Genera Schedules</router-link>
+            <router-link to="/crew/availability">Availability</router-link>
             <router-link to="/crew/profile">Crew Profile</router-link>
         </div>
     </div>
 </template>
 
 <script setup>
-const crewname = "crew name";
+import crewapi from '@/api/crewapi';
+import { ref } from 'vue';
+
+const crewname = ref(crewapi.getCrewLastName());
 </script>
 
 <style lang="scss" scoped>

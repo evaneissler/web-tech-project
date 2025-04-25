@@ -9,6 +9,10 @@ function getUserID() {
     return localStorage.getItem("userID") ? localStorage.getItem("userID") : "None";
 }
 
+function getCrewLastName() {
+    return localStorage.getItem("crewlastName") ? localStorage.getItem("crewlastName") : "not found";
+}
+
 
 const headerPost = {
     method: "POST",
@@ -255,5 +259,6 @@ export default {
     createCrewProfile,
     viewGameById,
     viewAllGamesInSchedule,
-    getUserID
+    getUserID,
+    getCrewLastName
 }
