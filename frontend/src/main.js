@@ -12,6 +12,8 @@ const app = createApp(App);
 async function login() {
     const res = await adminapi.login("jane@smith.com", "password");
     localStorage.setItem("token", res.data.token);
+    localStorage.setItem("userID", res.data.userInfo.id);
+    // console.log(res.data.userInfo.id);
 }
 
 login();

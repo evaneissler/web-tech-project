@@ -1,6 +1,8 @@
 <template>
     <div class="games">
+        <hr>
         <h1>Games in schedule {{ scheduleId }}</h1>
+        <hr>
     </div>
 
     <div class="game-list-container">
@@ -32,6 +34,10 @@
         </div>
         <div v-else class="no-games">
             <h1>No games yet</h1>
+        </div>
+
+        <div class="instr">
+            <p>AA stands for Add Availability</p>
         </div>
     </div>
 </template>
@@ -71,13 +77,18 @@ loadAllGames();
 const goToAddAvailability = async (id) => {
     router.push({ name: "Availability", params: { id: id } });
 }
-
-
 </script>
 
 <style lang="scss" scoped>
+.instr{
+    text-align: center;
+    margin-top: 3rem;
+}
+.games {
+    text-align: center;
+}
+
 .game-list {
-    /* background: red; */
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -90,11 +101,12 @@ const goToAddAvailability = async (id) => {
 }
 
 .game-item * {
-    padding: 1rem;
+    padding: 0.5rem;
 }
 
 .game-item:hover {
     background: rgb(230, 230, 230);
+    color: purple;
     cursor: pointer;
 }
 </style>

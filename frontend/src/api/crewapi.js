@@ -5,6 +5,10 @@ function tokenProcess() {
     return localStorage.getItem("token");
 }
 
+function getUserID() {
+    return localStorage.getItem("userID") ? localStorage.getItem("userID") : "None";
+}
+
 
 const headerPost = {
     method: "POST",
@@ -97,7 +101,7 @@ const viewAllGamesInSchedule = async () => {
             throw new Error(`Error: ${res.status}`)
         }
         return res.json();
-    }   catch (error) {
+    } catch (error) {
         console.log(error);
         throw error;
     }
@@ -116,7 +120,7 @@ const viewGameById = async (gameId) => {
             throw new Error(`Error: ${res.status}`)
         }
         return res.json();
-    }   catch (error) {
+    } catch (error) {
         console.log(error);
         throw error;
     }
@@ -147,7 +151,7 @@ const viewCrewList = async (gameId) => {
  * 
  * @param {Number} id 
  * @returns 
- */ 
+ */
 const crewProfile = async (id) => {
     try {
         const res = await fetch(BASE_URL + `/crewMember/${id}`);
@@ -218,18 +222,38 @@ const createCrewProfile = async (crew) => {
     }
 }
 
-const addAvailability = async ( gameId, availability) => {
+/**
+ * 
+ * @param {*} availabilityBody 
+ * @returns 
+ */
 
+const submitAvailability = async (availabilityBody) => {
+    try {
+        const res = await fetch(BASE_URL + "/availability", {
+            ...headerPost,
+            body: JSON.stringify(availabilityBody),
+        })
+        if (!res.ok) {
+            throw new Error(`Error: ${res.status}`)
+        }
+        return res.json();
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
 }
 
 
 export default {
     login,
     viewGeneralSchedule,
+    submitAvailability,
     viewCrewList,
     crewProfile,
     editCrewProfile,
     createCrewProfile,
     viewGameById,
-    viewAllGamesInSchedule
+    viewAllGamesInSchedule,
+    getUserID
 }

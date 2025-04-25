@@ -41,26 +41,30 @@
 
         <div class="schedules-list" v-if="schedules.length > 0">
             <table class="schedule-table">
-                <tr class="schedule-header">
-                    <th>Schedule ID</th>
-                    <th>Sport</th>
-                    <th>Season</th>
-                    <th>Games</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-                <tr class="game-schedule" v-for="(item) in schedules" :key="item.id" @click="goToSchedule(item.id)">
-                    <td>{{ item.id }}</td>
-                    <td>{{ item.sport }}</td>
-                    <td>{{ item.season }}</td>
-                    <td>{{ item.games.length }}</td>
-                    <td>
-                        <ButtonC>Edit</ButtonC>
-                    </td>
-                    <td>
-                        <ButtonC>Delete</ButtonC>
-                    </td>
-                </tr>
+                <thead>
+                    <tr class="schedule-header">
+                        <th>Schedule ID</th>
+                        <th>Sport</th>
+                        <th>Season</th>
+                        <th>Games</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody class="game-schedule" v-for="(item) in schedules" :key="item.id" @click="goToSchedule(item.id)">
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.sport }}</td>
+                        <td>{{ item.season }}</td>
+                        <td>{{ item.games.length }}</td>
+                        <td>
+                            <ButtonC>Edit</ButtonC>
+                        </td>
+                        <td>
+                            <ButtonC>Delete</ButtonC>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
         </div>
 
@@ -124,7 +128,7 @@ const submitNewSchedule = async () => {
         seasonName.value = "";
     } catch (err) {
         postResponse.value = err;
-    } finally{
+    } finally {
         loading.value = false;
         HideForm.value = !HideForm.value;
     }
