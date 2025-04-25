@@ -34,25 +34,33 @@
     <!-- Showing available games -->
     <!-- ********************************** -->
     <div class="game-list" v-if="availableGames.length > 0">
-            <table class="game-table">
-                <tr>
-                    <th>Game ID</th>
-                    <th>Game Date</th>
-                    <th>Venue</th>
-                    <th>Opponent</th>
-                    <th>Is Finalized</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-                <tr class="game-item"  v-for="game in availableGames" :key="game.gameId">
-                    <td>{{game.gameId}}</td>
-                    <td>{{game.gameDate}}</td>
-                    <td>{{game.venue}}</td>
-                    <td>{{game.opponent}}</td>
-                    <td>{{game.isFinalized}}</td>
-                    <td><ButtonC>Edit</ButtonC></td>
-                    <td><ButtonC>Delete</ButtonC></td>
-                </tr>
+        <table class="game-table">
+                <thead>
+                    <tr>
+                        <th>Game ID</th>
+                        <th>Game Date</th>
+                        <th>Venue</th>
+                        <th>Opponent</th>
+                        <th>Is Finalized</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody class="game-item" v-for="game in availableGames" :key="game.gameId">
+                    <tr>
+                        <td>{{ game.gameId }}</td>
+                        <td>{{ game.gameDate }}</td>
+                        <td>{{ game.venue }}</td>
+                        <td>{{ game.opponent }}</td>
+                        <td>{{ game.isFinalized }}</td>
+                        <td>
+                            <ButtonC>Edit</ButtonC>
+                        </td>
+                        <td>
+                            <ButtonC>Delete</ButtonC>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
     </div>
     <div v-else class="no-games">
@@ -248,7 +256,7 @@ const submitNewGame = async () =>{
         text-align: center;
     }
 
-    .game-item > *{
+    .game-item  *{
         padding: 1rem;
     }
 

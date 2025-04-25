@@ -8,6 +8,7 @@ import Profile from "@/pages/admin/admin-comp/Profile.vue";
 import CrewAvailable from "@/pages/crew/crew-comp/CrewAvailable.vue";
 import CrewGameSchedule from "@/pages/crew/crew-comp/CrewGameSchedule.vue";
 import CrewProfile from "@/pages/crew/crew-comp/CrewProfile.vue";
+import GamesInSchedule from "@/pages/crew/crew-comp/GamesInSchedule.vue";
 import WelcomeCrew from "@/pages/crew/crew-comp/WelcomeCrew.vue";
 import CrewProfiles from "../pages/admin/admin-comp/CrewProfiles.vue";
 import GameSchedule from "../pages/admin/admin-comp/GameSchedule.vue";
@@ -49,6 +50,7 @@ const routes = [
         children:[
             {path:"", name:"WelcomeCrew", component: WelcomeCrew},
             {path: "schedule" ,name:"Schedule", component: CrewGameSchedule, props: true},
+            {path:"schedule/:id/games", name:"Schedule-crew", component: GamesInSchedule, props: true},
             {path:"games", name:"Games", component: CrewGameSchedule, props: true},
             {path:"availability", name:"Availability", component: CrewAvailable, props: true},
             {path:"profile", name:"Profile", component: CrewProfile, props: true}

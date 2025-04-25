@@ -1,4 +1,39 @@
-const BASE_URL = "http://localhost:8080/api/v1";
+const BASE_URL = "https://web-tech-project.azurewebsites.net/api/v1";
+
+
+function tokenProcess() {
+    return localStorage.getItem("token");
+}
+
+
+const headerPost = {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${tokenProcess()}`
+    }
+}
+
+const headerPut = {
+    method: "PUT",
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${tokenProcess()}`
+    }
+}
+
+const headerDelete = {
+    method: "DELETE",
+    headers: {
+        "Authorization": `Bearer ${tokenProcess()}`
+    }
+}
+
+const headerGet = {
+    headers: {
+        "Authorization": `Bearer ${tokenProcess()}`
+    }
+}
 
 /*
  * @param {String} username
@@ -37,7 +72,7 @@ const login = async (username, password) => {
  */
 const viewGeneralSchedule = async () => {
     try {
-        const res = await fetch(BASE_URL + "/gameSchedule");
+        const res = await fetch(BASE_URL + "/gameSchedule", headerGet);
         if (!res.ok) {
             throw new Error(`Error: ${res.status}`)
         }
@@ -57,7 +92,7 @@ const viewGeneralSchedule = async () => {
 
 const viewAllGamesInSchedule = async () => {
     try {
-        const res = await fetch(BASE_URL + "/gameSchedule/games");
+        const res = await fetch(BASE_URL + "/gameSchedule/games", headerGet);
         if (!res.ok) {
             throw new Error(`Error: ${res.status}`)
         }
@@ -181,6 +216,10 @@ const createCrewProfile = async (crew) => {
         console.log(error);
         throw error;
     }
+}
+
+const addAvailability = async ( gameId, availability) => {
+
 }
 
 
