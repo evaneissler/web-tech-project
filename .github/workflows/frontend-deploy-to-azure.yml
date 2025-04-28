@@ -12,10 +12,6 @@ permissions:
   contents: 'read'
   packages: 'write'
 
-defaults:
-  run:
-    working-directory: frontend/
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,14 +23,16 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'  # Or '18' depending on your project
+          node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
         run: npm install
+        working-directory: frontend
 
       - name: Build the Vue.js app
         run: npm run build
+        working-directory: frontend
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -47,14 +45,14 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Lowercase the repo name
-        run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+        run: echo "REPO=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
 
       - name: Build and push container image to registry
         uses: docker/build-push-action@v5
         with:
           context: ./frontend
           push: true
-          tags: ghcr.io/${{ env.REPO }}-frontend:${{ github.sha }}
+          tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}
           file: frontend/Dockerfile
 
   deploy:
@@ -63,7 +61,7 @@ jobs:
 
     steps:
       - name: Lowercase the repo name
-        run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+        run: echo "REPO=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -71,5 +69,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_FRONTEND_PUBLISH_PROFILE }}
-          images: 'ghcr.io/${{ env.REPO }}-frontend:${{ github.sha }}'
-
+          images: 'ghcr.io/${{ env.REPO }}:${{ github.sha }}'
