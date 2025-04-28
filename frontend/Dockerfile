@@ -1,21 +1,24 @@
 # Stage 1: Build the application
 FROM node:18-alpine AS build-stage
 
+# Set working directory
+WORKDIR /app
+
 # Install dependencies
-COPY package*.json ./   # Ensure you copy the package files from the correct directory
+COPY package*.json ./
 RUN npm install
 
 # Copy source code
-COPY ./
+COPY . .  # <--- now correct: "COPY source destination"
 
-# Build the application for production
+# Build the application
 RUN npm run build
 
 # Stage 2: Serve the app with Nginx
 FROM nginx:stable-alpine AS production-stage
 
 # Copy built assets from previous stage
-COPY --from=build-stage /dist /usr/share/nginx/html  # Ensure correct path to 'dist'
+COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
