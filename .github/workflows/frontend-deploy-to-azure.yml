@@ -14,7 +14,7 @@ permissions:
 
 defaults:
   run:
-    working-directory: frontend/
+    working-directory: frontend
 
 jobs:
   build:
@@ -27,16 +27,15 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Or '18' depending on your project setup
+          node-version: '20'
           cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
 
       - name: Install dependencies
         run: npm install
-        working-directory: frontend
 
       - name: Build the Vue.js app
         run: npm run build
-        working-directory: frontend
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -74,3 +73,4 @@ jobs:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_FRONTEND_PUBLISH_PROFILE }}
           images: 'ghcr.io/${{ env.REPO }}:${{ github.sha }}'
+
