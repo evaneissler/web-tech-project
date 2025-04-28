@@ -73,6 +73,21 @@ const login = async (username, password) => {
 }
 
 
+const getMyProfile = async () => {
+    const userId = getUserID();
+    try {
+        const res = await fetch(BASE_URL + `/crewMember/${userId}`, headerGet);
+        if (!res.ok) {
+            throw new Error(`Error: ${res.status}`)
+        } else {
+            return res.json();
+        }
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 /**
  * Gets all the general schedules for the crew
  * @returns {Promise<Array>}
@@ -260,5 +275,6 @@ export default {
     viewGameById,
     viewAllGamesInSchedule,
     getUserID,
-    getCrewLastName
+    getCrewLastName,
+    getMyProfile
 }
