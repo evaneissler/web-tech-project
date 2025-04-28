@@ -12,6 +12,11 @@ permissions:
   contents: 'read'
   packages: 'write'
 
+defaults:
+  run:
+    working-directory: path/to/your/folder
+
+
 jobs:
   build:
     runs-on: ubuntu-latest
