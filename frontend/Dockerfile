@@ -14,7 +14,7 @@ FROM nginx:stable-alpine AS production-stage
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Copy custom Nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY fontend/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy built assets
 COPY --from=build-stage /app/dist /usr/share/nginx/html
