@@ -9,7 +9,7 @@ COPY package*.json ./
 RUN npm install
 
 # Copy source code
-COPY . .  # <--- now correct: "COPY source destination"
+COPY . .   
 
 # Build the application
 RUN npm run build
@@ -25,4 +25,3 @@ EXPOSE 80
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
-
