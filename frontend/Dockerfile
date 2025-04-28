@@ -5,7 +5,7 @@ FROM node:18-alpine AS build-stage
 WORKDIR /frontend
 
 # Install dependencies
-COPY package*.json ./
+COPY package*.json ./frontend
 RUN npm install
 
 # Copy source code
