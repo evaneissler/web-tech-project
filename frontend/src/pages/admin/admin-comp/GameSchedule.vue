@@ -146,7 +146,7 @@ const loadAllSchedules = async () => {
         const schedulesRes = await adminapi.gameSchedule();
         schedules.value = schedulesRes.data;
     } catch (err) {
-        console.log(err);
+        console.error(err);
     } finally {
         loading.value = false;
     }

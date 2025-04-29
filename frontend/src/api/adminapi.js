@@ -353,7 +353,25 @@ const findCrewById = async (id) => {
     }
 }
 
+/**
+ * Fetches all the users under a game
+ * @param {Number} gameId - The id of the game
+ * @returns {Promise<Array>} - The response from the API
+ */
 
+const usersUnderGame = async (gameId) => {
+    try {
+        // const url = BASE_URL + `/crewList/${gameId}`;
+        const url = BASE_URL + `/crewSchedule/${gameId}`;
+        const res = await fetch(url, headerGet);
+        if (!res.ok) {
+            throw new Error(`Error: ${res.status}`)
+        }
+        return res.json();
+    } catch (err) {
+        console.log(err);
+    }
+}
 
 export default {
     login,
@@ -369,5 +387,6 @@ export default {
     deleteGame,
     invite,
     findAllCrew,
-    findCrewById
+    findCrewById,
+    usersUnderGame
 }

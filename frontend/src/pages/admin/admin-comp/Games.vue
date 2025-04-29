@@ -46,7 +46,7 @@
                         <th>Delete</th>
                     </tr>
                 </thead>
-                <tbody class="game-item" v-for="game in availableGames" :key="game.gameId">
+                <tbody class="game-item" v-for="game in availableGames" :key="game.gameId" @click="goToCrewList(game.gameId)">
                     <tr>
                         <td>{{ game.gameId }}</td>
                         <td>{{ game.gameDate }}</td>
@@ -74,7 +74,9 @@
 import adminapi from '@/api/adminapi';
 import ButtonC from '@/components/ButtonC.vue';
 import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+
+const router = useRouter();
 let HideForm = ref(true);
 const loading = ref(true);
 
@@ -102,9 +104,8 @@ const loadAllGames = async () =>{
         // const scheduleTitleRes = await adminapi.findAllGames(scheduleId);
         // scheduleTitle.value = scheduleTitleRes;
         availableGames.value = availableGamesRes.data;
-        console.log(availableGames.value);
     } catch(err){
-        console.log(err);
+        console.error(err);
     } finally {
         loading.value = false;
     }
@@ -153,6 +154,14 @@ const submitNewGame = async () =>{
     } finally {
         HideForm.value = !HideForm.value;
     }
+}
+
+
+// ****************************************
+// Go to the game to see users under it
+// ****************************************
+const goToCrewList =  (id)=> {
+    router.push({name:"user under schedule", params:{id:id}});
 }
 
 // ****************************************

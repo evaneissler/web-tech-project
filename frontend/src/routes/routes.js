@@ -5,6 +5,7 @@ import HomeView from "@/pages/HomeView.vue";
 import AdminPanel from "@/pages/admin/AdminPanel.vue";
 import AdminWelcome from "@/pages/admin/admin-comp/AdminWelcome.vue";
 import Profile from "@/pages/admin/admin-comp/Profile.vue";
+import CrewUndergame from "@/pages/admin/admin-comp/crewUndergame.vue";
 import CrewAvailable from "@/pages/crew/crew-comp/CrewAvailable.vue";
 import CrewGameSchedule from "@/pages/crew/crew-comp/CrewGameSchedule.vue";
 import CrewProfile from "@/pages/crew/crew-comp/CrewProfile.vue";
@@ -34,6 +35,7 @@ const routes = [
             {path: "", name: "Admin Welcome Page", component: AdminWelcome},
             {path: "schedules", name:"Schedules", component: GameSchedule, props: true},
             {path:"schedules/:id/games", name:"Schedule-admin", component: Games, props: true},
+            {path:"schedules/:id/games/crew", name:"user under schedule", component: CrewUndergame, props: true},
             {path:"crew", name:"crews", component: CrewProfiles},
             {path:"crew/:id", name:"Profile-admins", component: Profile, props: true},
             {path:"invite", name:"invite", component: Invite},
