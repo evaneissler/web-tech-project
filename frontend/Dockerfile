@@ -1,5 +1,6 @@
 # Stage 1: Build the application
-FROM node:18-alpine AS build-stage
+# from 18-alpine
+FROM node:23-alpine AS build-stage
 
 WORKDIR /app
 COPY package*.json ./

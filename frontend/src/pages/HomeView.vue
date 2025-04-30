@@ -60,7 +60,7 @@ const handleLogin = async()=>{
     }
 
     // for now just going to the panel as needed
-    routerRedirect.push("/admins-panel")
+    routerRedirect.push("/admins")
 }
 
 
