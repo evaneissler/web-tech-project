@@ -47,8 +47,12 @@ public class GameScheduleController {
 
     @GetMapping("/{id}")
     public Result findById(@PathVariable int id) {
-        GameSchedule foundSchedule = this.gameScheduleService.findById(id);
-        GameScheduleDto gameScheduleDto = gameScheduleToGameScheduleDtoConverter.convert(foundSchedule);
-        return new Result(true, StatusCode.SUCCESS, "Find Success", gameScheduleDto);
+        try {
+            GameSchedule foundSchedule = this.gameScheduleService.findById(id);
+            GameScheduleDto gameScheduleDto = gameScheduleToGameScheduleDtoConverter.convert(foundSchedule);
+            return new Result(true, StatusCode.SUCCESS, "Find Success", gameScheduleDto);
+        } catch (ObjectNotFoundException e) {
+            return new Result(false, StatusCode.NOT_FOUND, e.getMessage(), null);
+        }
     }
 }
