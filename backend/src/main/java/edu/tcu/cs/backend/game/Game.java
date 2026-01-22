@@ -15,7 +15,7 @@ public class Game {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "game_schedule_id", referencedColumnName = "id")
+    @JoinColumn(name = "schedule_id", referencedColumnName = "id")
     @JsonBackReference
     private GameSchedule gameSchedule;
 
