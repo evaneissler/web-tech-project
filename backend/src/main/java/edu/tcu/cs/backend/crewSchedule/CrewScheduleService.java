@@ -36,8 +36,7 @@ public class CrewScheduleService {
     }
 
     public CrewSchedule findById(Integer id) throws ObjectNotFoundException {
-        return this.crewScheduleRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException("availability", id));
+                .orElseThrow(() -> new ObjectNotFoundException("crewSchedule", id));
     }
 
     public CrewSchedule save(CrewSchedule crewSchedule) {
