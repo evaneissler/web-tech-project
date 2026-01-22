@@ -29,6 +29,8 @@ import "@/assets/base.css";
 import ButtonC from "@/components/ButtonC.vue";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import axios from "axios";
+import { useRouter } from "vue-router";
 
 const routerRedirect = useRouter();
 
