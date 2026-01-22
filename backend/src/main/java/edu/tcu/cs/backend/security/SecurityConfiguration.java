@@ -53,10 +53,10 @@ public class SecurityConfiguration {
 
     private final CustomBearerTokenAccessDeniedHandler customBearerTokenAccessDeniedHandler;
 
-    public SecurityConfiguration(CustomBasicAuthenticationEntryPoint customBasicAuthenticationEntryPoint, CustomBearerTokenAuthenticationEntryPoint customBearerTokenAuthenticationEntryPoint, CustomBearerTokenAccessDeniedHandler customBearerTokenAccessDeniedHandler, CustomBasicAuthenticationEntryPoint customBasicAuthenticationEntryPoint1, CustomBearerTokenAuthenticationEntryPoint customBearerTokenAuthenticationEntryPoint1, CustomBearerTokenAccessDeniedHandler customBearerTokenAccessDeniedHandler1) throws NoSuchAlgorithmException {
-        this.customBasicAuthenticationEntryPoint = customBasicAuthenticationEntryPoint1;
-        this.customBearerTokenAuthenticationEntryPoint = customBearerTokenAuthenticationEntryPoint1;
-        this.customBearerTokenAccessDeniedHandler = customBearerTokenAccessDeniedHandler1;
+    public SecurityConfiguration(CustomBasicAuthenticationEntryPoint customBasicAuthenticationEntryPoint, CustomBearerTokenAuthenticationEntryPoint customBearerTokenAuthenticationEntryPoint, CustomBearerTokenAccessDeniedHandler customBearerTokenAccessDeniedHandler) throws NoSuchAlgorithmException {
+        this.customBasicAuthenticationEntryPoint = customBasicAuthenticationEntryPoint;
+        this.customBearerTokenAuthenticationEntryPoint = customBearerTokenAuthenticationEntryPoint;
+        this.customBearerTokenAccessDeniedHandler = customBearerTokenAccessDeniedHandler;
 
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
         keyPairGenerator.initialize(2048); // key with size of 2048 bits
